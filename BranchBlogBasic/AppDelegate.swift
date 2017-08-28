@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Branch
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -16,6 +17,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        Branch.getInstance().initSession(launchOptions: launchOptions) { params, error in
+            print(params as? [String: AnyObject] ?? {})
+            
+            if error == nil && params?["+clicked_branch_link"] != nil && params?["blog_link"] != nil {
+                guard let blog = BlogData(title: params?["title"] as! String, photourl: params?["image"] as? String, blog_description: params?["blog_description"] as! String,id: params?["id"] as! String,date: params?["date"] as! String,link: params?["blog_link"] as! String) else {
+                    fatalError("Unable to instantiate BlogData")
+                }
+                let rootViewController = self.window!.rootViewController!;
+                rootViewController.performSegue(withIdentifier: "BlogViewSegue", sender: blog)
+            } else {
+                // load your normal view
+            }
+        }
         return true
     }
 
@@ -41,6 +56,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
+    // Respond to Universal Links
+    func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([Any]?) -> Void) -> Bool {
+        // pass the url to the handle deep link call
+        Branch.getInstance().continue(userActivity)
+        return true
+    }
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any] = [:]) -> Bool {
+        // pass the url to the handle deep link call
+        Branch.getInstance().application(app,
+                                         open: url,
+                                         options:options
+        )
+        
+        // do other deep link routing for the Facebook SDK, Pinterest SDK, etc
+        return true
+    }
 
 }
 
