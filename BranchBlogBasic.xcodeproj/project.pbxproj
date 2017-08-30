@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		0FB5ED6250E035565119721A /* Pods_BranchBlogBasicTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5AB7D0B11B431622AA53089 /* Pods_BranchBlogBasicTests.framework */; };
 		9800F62ED4044DCDF22A8C8C /* Pods_BranchBlogBasic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6C4E9F25E2A03C2FCDDC286 /* Pods_BranchBlogBasic.framework */; };
+		9A5C19031F54E1AC002E17A2 /* SplashViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A5C19021F54E1AC002E17A2 /* SplashViewController.swift */; };
+		9A5C19051F5600DD002E17A2 /* NetworkUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A5C19041F5600DD002E17A2 /* NetworkUtils.swift */; };
 		9A6B47DB1F424CC00087948F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6B47DA1F424CC00087948F /* AppDelegate.swift */; };
 		9A6B47DD1F424CC00087948F /* BlogTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6B47DC1F424CC00087948F /* BlogTableViewController.swift */; };
 		9A6B47E01F424CC00087948F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A6B47DE1F424CC00087948F /* Main.storyboard */; };
@@ -34,6 +36,8 @@
 		0A0BCF7F1BCB334C293A81EB /* Pods-BranchBlogBasicTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BranchBlogBasicTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BranchBlogBasicTests/Pods-BranchBlogBasicTests.release.xcconfig"; sourceTree = "<group>"; };
 		32ECACD12DFE9EC1EFEB37CD /* Pods-BranchBlogBasic.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BranchBlogBasic.release.xcconfig"; path = "Pods/Target Support Files/Pods-BranchBlogBasic/Pods-BranchBlogBasic.release.xcconfig"; sourceTree = "<group>"; };
 		356D14C91D462CC26EE59DF7 /* Pods-BranchBlogBasicTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BranchBlogBasicTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BranchBlogBasicTests/Pods-BranchBlogBasicTests.debug.xcconfig"; sourceTree = "<group>"; };
+		9A5C19021F54E1AC002E17A2 /* SplashViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashViewController.swift; sourceTree = "<group>"; };
+		9A5C19041F5600DD002E17A2 /* NetworkUtils.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetworkUtils.swift; sourceTree = "<group>"; };
 		9A6B47D71F424CC00087948F /* BranchBlogBasic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BranchBlogBasic.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A6B47DA1F424CC00087948F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9A6B47DC1F424CC00087948F /* BlogTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlogTableViewController.swift; sourceTree = "<group>"; };
@@ -116,6 +120,8 @@
 				9A6B47E11F424CC00087948F /* Assets.xcassets */,
 				9A6B47E31F424CC00087948F /* LaunchScreen.storyboard */,
 				9A6B47E61F424CC00087948F /* Info.plist */,
+				9A5C19021F54E1AC002E17A2 /* SplashViewController.swift */,
+				9A5C19041F5600DD002E17A2 /* NetworkUtils.swift */,
 			);
 			path = BranchBlogBasic;
 			sourceTree = "<group>";
@@ -350,7 +356,9 @@
 				9A6B47FF1F436A870087948F /* BlogData.swift in Sources */,
 				9A6B48031F43E4EB0087948F /* BlogViewController.swift in Sources */,
 				9A6B47DD1F424CC00087948F /* BlogTableViewController.swift in Sources */,
+				9A5C19031F54E1AC002E17A2 /* SplashViewController.swift in Sources */,
 				9A6B47DB1F424CC00087948F /* AppDelegate.swift in Sources */,
+				9A5C19051F5600DD002E17A2 /* NetworkUtils.swift in Sources */,
 				9A6B48011F438BB10087948F /* BlogDataTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

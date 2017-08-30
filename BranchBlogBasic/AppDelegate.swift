@@ -22,7 +22,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print(params as? [String: AnyObject] ?? {})
             
             if error == nil && params?["+clicked_branch_link"] != nil && params?["blog_link"] != nil {
-                guard let blog = BlogData(title: params?["title"] as! String, photourl: params?["image"] as? String, blog_description: params?["blog_description"] as! String,id: params?["id"] as! String,date: params?["date"] as! String,link: params?["blog_link"] as! String) else {
+                guard let blog = BlogData(id: (params?["id"] as? String)!, date: (params?["date"] as? String)!, title: (params?["title"] as? String)!, authorurl: params?["authorurl"] as? String, photourl: params?["image"] as? String, blog_description: (params?["blog_description"] as? String)! ,link: (params?["blog_link"] as? String)! ) else {
                     fatalError("Unable to instantiate BlogData")
                 }
                 let rootViewController = self.window!.rootViewController!;

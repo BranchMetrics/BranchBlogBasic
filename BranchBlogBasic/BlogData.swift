@@ -15,6 +15,8 @@ class BlogData: NSObject {
     var photo: UIImage?
     var photourl: String?
     var blog_description: String?
+    var author: String?
+    var authorurl:String?
     var id: String?
     var date: String?
     var link: String?
@@ -24,13 +26,14 @@ class BlogData: NSObject {
         static let photo = "photo"
     }
     
-    init?(title: String, photo: UIImage?, blog_description: String,id: String,date: String,link: String ) {
+    init?(title: String, author: String, photo: UIImage?, blog_description: String,id: String,date: String,link: String ) {
         
         if title.isEmpty || id.isEmpty || link.isEmpty {
             return nil;
         }
         
         self.title = title
+        self.author = author
         self.photo = photo
         self.blog_description = blog_description
         self.id = id
@@ -38,19 +41,20 @@ class BlogData: NSObject {
         self.link = link
     }
     
-    init?(title: String, photourl: String?, blog_description: String,id: String,date: String,link: String ) {
+    init?(id: String, date: String, title: String, authorurl: String?, photourl: String?, blog_description: String ,link: String ) {
         
         if title.isEmpty || id.isEmpty || link.isEmpty {
             return nil;
         }
         
         self.title = title
+        self.authorurl = authorurl
         self.photourl = photourl
-        let url = NSURL(string:self.photourl!)
-        let data = NSData(contentsOf:url! as URL)
-        if data != nil {
-            photo = UIImage(data:data! as Data)
-        }
+//        let url = NSURL(string:self.photourl!)
+//        let data = NSData(contentsOf:url! as URL)
+//        if data != nil {
+//            photo = UIImage(data:data! as Data)
+//        }
         self.blog_description = blog_description
         self.id = id
         self.date = date

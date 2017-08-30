@@ -22,8 +22,6 @@ class BlogTableViewController: UIViewController, UITableViewDelegate, UITableVie
     // Mark: Private methods
     private func loadBlog() {
         
-        makeNetworkRequests()
-        
         var placeholder_image = UIImage(named: "Branch_logo")
 
         // Sample Blogs
@@ -50,11 +48,12 @@ class BlogTableViewController: UIViewController, UITableViewDelegate, UITableVie
         task.resume()
         
         var id = "2591"
+        var author = "Alex Austin"
         var blog_description = "PregBuddy is an integrated health and wellness platform supporting women during their pregnancies. They offer personalized healthcare via peer support, organized information, expert access for nutrition, fitness and emotional advice"
         var jscript_date = "2017-08-11T08:56:01"
         var link = "https://blog.branch.io/how-pregbuddy-used-branch-to-link-between-messenger-bot-and-android-app/"
         
-        guard let blog1 = BlogData(title: title, photo: placeholder_image, blog_description: blog_description,id: id,date: jscript_date,link: link ) else {
+        guard let blog1 = BlogData(title: title, author: author, photo: placeholder_image, blog_description: blog_description,id: id,date: jscript_date,link: link ) else {
                     fatalError("Unable to instantiate BlogData")
         }
 //        
@@ -253,31 +252,6 @@ class BlogTableViewController: UIViewController, UITableViewDelegate, UITableVie
 //            }
 //        }
 //    }
-    
-    func makeNetworkRequests() {
-        let url = URL(string: "https://blog.branch.io/wp-json/wp/v2/posts")
-        
-        let task = URLSession.shared.dataTask(with: url!) { (data, response, error) in
-            
-            if let data = data {
-                do {
-                    // Convert the data to JSON
-                    let jsonSerialized = try JSONSerialization.jsonObject(with: data, options: []) as? [String : Any]
-                    
-                    if let json = jsonSerialized, let url = json["url"], let explanation = json["explanation"] {
-                        print(url)
-                        print(explanation)
-                    }
-                }  catch let error as NSError {
-                    print(error.localizedDescription)
-                }
-            } else if let error = error {
-                print(error.localizedDescription)
-            }
-        }
-        task.resume()
-        
-    }
 
 }
 
