@@ -14,6 +14,7 @@ class SplashViewController: UIViewController {
     @IBOutlet weak var alertLabel: UILabel!
     @IBOutlet weak var alertLabel2: UILabel!
     let url: URL = URL(string: "https://blog.branch.io/wp-json/wp/v2/posts")!
+    let bloglist_segue = "pushToBlogList"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -48,6 +49,15 @@ class SplashViewController: UIViewController {
         }
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == self.bloglist_segue {
+            if let nextVC = segue.destination as? BlogTableViewController {
+                nextVC.blogs = (sender as? [BlogData])!
+            }
+        }
+    }
+    
     func prepareBlogData(_ jsonvalue: Any) {
         if jsonvalue is Array<Any> {
             var blogs = [BlogData]()
@@ -59,12 +69,21 @@ class SplashViewController: UIViewController {
                 let description = ((jsonblob as AnyObject)["excerpt"] as AnyObject)["rendered"] as! String
                 let photo_url = ((((jsonblob as AnyObject)["_links"] as AnyObject)["wp:featuredmedia"] as! Array<Any>)[0] as AnyObject)["href"] as! String
                 let author_url = ((((jsonblob as AnyObject)["_links"] as AnyObject)["author"]as! Array<Any>)[0] as AnyObject)["href"] as! String
-                
                 guard let blog = BlogData(id: id, date: date, title: title, authorurl: author_url, photourl: photo_url, blog_description: description ,link: link ) else {
                     fatalError("Unable to instantiate BlogData")
                 }
-                print(blog)
-                blogs.append(blog)
+                NetworkUtils.makeNetworkRequests(url:URL(string:author_url)!, closure:{ (jsonreturned: Any) -> Void in
+                    var author = ""
+                    if !(jsonreturned is NSError) {
+                        author = (jsonreturned as AnyObject)["name"] as! String
+                    }
+                    blog.addAuthor(author)
+                    blogs.append(blog)
+                    if(blogs.count == (jsonvalue as! Array<Any>).count) {
+                        self.screenloader.stopAnimating()
+                        self.performSegue(withIdentifier: self.bloglist_segue, sender:blogs)
+                    }
+                })
             }
         } else {
             screenloader.stopAnimating()

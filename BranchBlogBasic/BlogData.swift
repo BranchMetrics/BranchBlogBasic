@@ -60,4 +60,18 @@ class BlogData: NSObject {
         self.date = date
         self.link = link
     }
+    
+    func addAuthor(_ author:String) {
+        self.author = author
+    }
+    
+    func printBlog() {
+        print(title ?? "")
+        print(author ?? "")
+        print(photo ?? "")
+        print(blog_description ?? "")
+        print(id ?? "")
+        print(date ?? "")
+        print(link ?? "")
+    }
 }

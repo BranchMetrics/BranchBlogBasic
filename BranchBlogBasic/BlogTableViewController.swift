@@ -27,36 +27,36 @@ class BlogTableViewController: UIViewController, UITableViewDelegate, UITableVie
         // Sample Blogs
         
         //Blog 1
-        var title = "How PregBuddy Used Branch to Link Between Messenger Bot and Android App"
-        var image_url = "https://1yjmqg26uh9k15zq0o1pderc-wpengine.netdna-ssl.com/wp-content/uploads/2017/08/image2-2-1024x664.png"
-        let url = URL(string: image_url)
-        
-        let task = URLSession.shared.dataTask(with: url!) { (data, response, error) in
-            
-            if let data = data {
-                do {
-                    if data != nil {
-                        placeholder_image = UIImage(data:data as Data)
-                    }
-                }  catch let error as NSError {
-                    print(error.localizedDescription)
-                }
-            } else if let error = error {
-                print(error.localizedDescription)
-            }
-        }
-        task.resume()
-        
-        var id = "2591"
-        var author = "Alex Austin"
-        var blog_description = "PregBuddy is an integrated health and wellness platform supporting women during their pregnancies. They offer personalized healthcare via peer support, organized information, expert access for nutrition, fitness and emotional advice"
-        var jscript_date = "2017-08-11T08:56:01"
-        var link = "https://blog.branch.io/how-pregbuddy-used-branch-to-link-between-messenger-bot-and-android-app/"
-        
-        guard let blog1 = BlogData(title: title, author: author, photo: placeholder_image, blog_description: blog_description,id: id,date: jscript_date,link: link ) else {
-                    fatalError("Unable to instantiate BlogData")
-        }
+//        var title = "How PregBuddy Used Branch to Link Between Messenger Bot and Android App"
+//        var image_url = "https://1yjmqg26uh9k15zq0o1pderc-wpengine.netdna-ssl.com/wp-content/uploads/2017/08/image2-2-1024x664.png"
+//        let url = URL(string: image_url)
 //        
+//        let task = URLSession.shared.dataTask(with: url!) { (data, response, error) in
+//            
+//            if let data = data {
+//                do {
+//                    if data != nil {
+//                        placeholder_image = UIImage(data:data as Data)
+//                    }
+//                }  catch let error as NSError {
+//                    print(error.localizedDescription)
+//                }
+//            } else if let error = error {
+//                print(error.localizedDescription)
+//            }
+//        }
+//        task.resume()
+//        
+//        var id = "2591"
+//        var author = "Alex Austin"
+//        var blog_description = "PregBuddy is an integrated health and wellness platform supporting women during their pregnancies. They offer personalized healthcare via peer support, organized information, expert access for nutrition, fitness and emotional advice"
+//        var jscript_date = "2017-08-11T08:56:01"
+//        var link = "https://blog.branch.io/how-pregbuddy-used-branch-to-link-between-messenger-bot-and-android-app/"
+//        
+//        guard let blog1 = BlogData(title: title, author: author, photo: placeholder_image, blog_description: blog_description,id: id,date: jscript_date,link: link ) else {
+//                    fatalError("Unable to instantiate BlogData")
+//        }
+//
 //        //Blog 2
 //        title = "The Ultimate Guide to Branch Products"
 //        image_url = "https://blog.branch.io/wp-content/uploads/2017/08/image9.png"
@@ -176,7 +176,7 @@ class BlogTableViewController: UIViewController, UITableViewDelegate, UITableVie
 //            fatalError("Unable to instantiate BlogData")
 //        }
         
-        blogs = [blog1]
+//        blogs = [blog1]
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -217,41 +217,5 @@ class BlogTableViewController: UIViewController, UITableViewDelegate, UITableVie
             }
         }
     }
-    
-//    func makePostRequest() {
-//        var request = URLRequest(url: URL(string: "https://blog.branch.io/wp-json/wp/v2/posts")!)
-//        request.httpMethod = "GET"
-//        var response_string: String?
-//        let task = URLSession.shared.dataTask(with: request) { data, response, error in
-//            guard let data = data, error == nil else {
-//                //check for fundamental networking error
-//                print("error=\(String(describing: error))")
-//                return
-//            }
-//            
-//            if let httpStatus = response as? HTTPURLResponse, httpStatus.statusCode != 200 {
-//                //check for http errors
-//                print("statusCode should be 200, but is \(httpStatus.statusCode)")
-//                print("response = \(String(describing: response))")
-//            }
-//            
-//            let responseString = String(data: data, encoding: .utf8)
-//            response_string = responseString!
-//            print("responseString = \(String(describing: responseString))")
-//            self.convertToDictionary(text: responseString!)
-//        }
-//        task.resume()
-//    }
-//    
-//    func convertToDictionary(text: String) {
-//        if let data = text.data(using: .utf8) {
-//            do {
-//                 try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any]
-//            } catch {
-//                print(error.localizedDescription)
-//            }
-//        }
-//    }
-
 }
 

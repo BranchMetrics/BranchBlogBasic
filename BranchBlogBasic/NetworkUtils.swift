@@ -15,7 +15,7 @@ class NetworkUtils: NSObject {
             
             if data != nil {
                 let json = try? JSONSerialization.jsonObject(with: data!, options: [])
-                closure(json as! Array<Any>)
+                closure(json as Any)
             } else {
                 closure(error!)
             }

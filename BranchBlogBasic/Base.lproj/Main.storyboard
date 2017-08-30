@@ -50,6 +50,7 @@
                         <outlet property="alertLabel" destination="ygD-96-jR4" id="0eX-YF-Avl"/>
                         <outlet property="alertLabel2" destination="Xfe-YF-jsn" id="N8l-wM-mxX"/>
                         <outlet property="screenloader" destination="u58-fb-Suc" id="u1S-VJ-XMA"/>
+                        <segue destination="qEw-fW-Nci" kind="presentation" identifier="pushToBlogList" id="g9a-qy-RxV"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -60,7 +61,7 @@
         <scene sceneID="DvE-4Y-NC8">
             <objects>
                 <collectionViewController id="qEw-fW-Nci" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="EBp-fi-hHB">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="EBp-fi-hHB">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
