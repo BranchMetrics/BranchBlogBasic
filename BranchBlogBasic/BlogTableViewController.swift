@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BlogTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class BlogTableViewController: UIViewController {
     
     //Mark: Properties
     var blogs = [BlogData]()
@@ -16,13 +16,13 @@ class BlogTableViewController: UIViewController, UITableViewDelegate, UITableVie
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        loadBlog()
+//        loadBlog()
     }
     
     // Mark: Private methods
-    private func loadBlog() {
-        
-        var placeholder_image = UIImage(named: "Branch_logo")
+//    private func loadBlog() {
+    
+//        var placeholder_image = UIImage(named: "Branch_logo")
 
         // Sample Blogs
         
@@ -177,45 +177,45 @@ class BlogTableViewController: UIViewController, UITableViewDelegate, UITableVie
 //        }
         
 //        blogs = [blog1]
-    }
+//    }
+//
+//    func numberOfSections(in tableView: UITableView) -> Int {
+//        return 1
+//    }
+//    
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        return blogs.count
+//    }
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        let cellIdentifier = "BlogDataTableViewCell"
+//        
+//        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? BlogDataTableViewCell  else {
+//            fatalError("The dequeued cell is not an instance of BlogDataTableViewCell.")
+//        }
+//        
+//        let blog_value = blogs[indexPath.row]
+//        
+//        cell.blogImage.image = blog_value.photo
+//        cell.blogTitle.text = blog_value.title
+//        cell.blogDescription.text = blog_value.blog_description
+//        
+//        return cell;
+//    }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return blogs.count
-    }
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        print("You selected cell #\(indexPath.row)!")
+//        let blog_value = blogs[indexPath.row]
+//        self.performSegue(withIdentifier: blogview_segue, sender:blog_value)
+//    }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cellIdentifier = "BlogDataTableViewCell"
-        
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? BlogDataTableViewCell  else {
-            fatalError("The dequeued cell is not an instance of BlogDataTableViewCell.")
-        }
-        
-        let blog_value = blogs[indexPath.row]
-        
-        cell.blogImage.image = blog_value.photo
-        cell.blogTitle.text = blog_value.title
-        cell.blogDescription.text = blog_value.blog_description
-        
-        return cell;
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("You selected cell #\(indexPath.row)!")
-        let blog_value = blogs[indexPath.row]
-        self.performSegue(withIdentifier: blogview_segue, sender:blog_value)
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        if segue.identifier == blogview_segue {
-            if let nextVC = segue.destination as? BlogViewController {
-                nextVC.blog_data = sender as? BlogData
-            }
-        }
-    }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        
+//        if segue.identifier == blogview_segue {
+//            if let nextVC = segue.destination as? BlogViewController {
+//                nextVC.blog_data = sender as? BlogData
+//            }
+//        }
+//    }
 }
 

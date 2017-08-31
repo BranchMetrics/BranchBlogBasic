@@ -13,10 +13,11 @@ import Branch
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    let themeColor = UIColor(red: 48, green: 54, blue: 84, alpha: 1.0)
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        window?.tintColor = themeColor
         
         Branch.getInstance().initSession(launchOptions: launchOptions) { params, error in
             print(params as? [String: AnyObject] ?? {})

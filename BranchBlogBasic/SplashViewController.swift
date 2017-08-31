@@ -52,14 +52,14 @@ class SplashViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == self.bloglist_segue {
-            if let nextVC = segue.destination as? BlogTableViewController {
+            if let nextVC = segue.destination as? BlogCollectionViewController {
                 nextVC.blogs = (sender as? [BlogData])!
             }
         }
     }
     
-    func prepareBlogData(_ jsonvalue: Any) {
-        if jsonvalue is Array<Any> {
+    func prepareBlogData(_ jsonvalue: Any,_ error: Error?) {
+        if error == nil {
             var blogs = [BlogData]()
             for jsonblob in jsonvalue as! Array<Any> {
                 let id =  ((jsonblob as AnyObject)["id"] as! NSNumber).stringValue
@@ -67,22 +67,31 @@ class SplashViewController: UIViewController {
                 let link = (jsonblob as AnyObject)["link"] as! String
                 let title = ((jsonblob as AnyObject)["title"] as AnyObject)["rendered"] as! String
                 let description = ((jsonblob as AnyObject)["excerpt"] as AnyObject)["rendered"] as! String
-                let photo_url = ((((jsonblob as AnyObject)["_links"] as AnyObject)["wp:featuredmedia"] as! Array<Any>)[0] as AnyObject)["href"] as! String
+                let media_url = ((((jsonblob as AnyObject)["_links"] as AnyObject)["wp:featuredmedia"] as! Array<Any>)[0] as AnyObject)["href"] as! String
                 let author_url = ((((jsonblob as AnyObject)["_links"] as AnyObject)["author"]as! Array<Any>)[0] as AnyObject)["href"] as! String
-                guard let blog = BlogData(id: id, date: date, title: title, authorurl: author_url, photourl: photo_url, blog_description: description ,link: link ) else {
-                    fatalError("Unable to instantiate BlogData")
-                }
-                NetworkUtils.makeNetworkRequests(url:URL(string:author_url)!, closure:{ (jsonreturned: Any) -> Void in
-                    var author = ""
-                    if !(jsonreturned is NSError) {
-                        author = (jsonreturned as AnyObject)["name"] as! String
+            
+                NetworkUtils.makeNetworkRequests(url: URL(string:media_url)!, closure: { (jsonreturned: Any,error: NSError?) -> Void in
+                    var photourl : String?
+                    if error == nil {
+                        photourl =  (((jsonreturned as AnyObject)["guid"] as AnyObject)["rendered"] as AnyObject) as? String
                     }
-                    blog.addAuthor(author)
-                    blogs.append(blog)
-                    if(blogs.count == (jsonvalue as! Array<Any>).count) {
-                        self.screenloader.stopAnimating()
-                        self.performSegue(withIdentifier: self.bloglist_segue, sender:blogs)
+                    
+                    guard let blog = BlogData(id: id, date: date, title: title, authorurl: author_url, photourl: photourl, blog_description: description ,link: link ) else {
+                        fatalError("Unable to instantiate BlogData")
                     }
+                    
+                    NetworkUtils.makeNetworkRequestsForImages(url:URL(string:photourl!)!, closure:{ (image_returned: UIImage,error: NSError?) -> Void in
+                        var image = UIImage(named: "Branch_logo")
+                        if (error == nil) {
+                            image = image_returned
+                            blog.addImage(image: image!)
+                            blogs.append(blog)
+                            if(blogs.count == (jsonvalue as! Array<Any>).count) {
+                                self.screenloader.stopAnimating()
+                                self.performSegue(withIdentifier: self.bloglist_segue, sender:blogs)
+                            }
+                        }
+                    })
                 })
             }
         } else {

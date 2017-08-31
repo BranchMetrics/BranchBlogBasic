@@ -50,11 +50,6 @@ class BlogData: NSObject {
         self.title = title
         self.authorurl = authorurl
         self.photourl = photourl
-//        let url = NSURL(string:self.photourl!)
-//        let data = NSData(contentsOf:url! as URL)
-//        if data != nil {
-//            photo = UIImage(data:data! as Data)
-//        }
         self.blog_description = blog_description
         self.id = id
         self.date = date
@@ -65,6 +60,10 @@ class BlogData: NSObject {
         self.author = author
     }
     
+    func addImage(image:UIImage) {
+        self.photo = image
+    }
+    
     func printBlog() {
         print(title ?? "")
         print(author ?? "")
@@ -73,5 +72,6 @@ class BlogData: NSObject {
         print(id ?? "")
         print(date ?? "")
         print(link ?? "")
+        print(photo)
     }
 }
