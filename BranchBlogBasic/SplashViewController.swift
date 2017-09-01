@@ -15,6 +15,7 @@ class SplashViewController: UIViewController {
     @IBOutlet weak var alertLabel2: UILabel!
     let url: URL = URL(string: "https://blog.branch.io/wp-json/wp/v2/posts")!
     let bloglist_segue = "pushToBlogList"
+    let show_webview = "showWebView"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -54,6 +55,11 @@ class SplashViewController: UIViewController {
         if segue.identifier == self.bloglist_segue {
             if let nextVC = segue.destination as? BlogCollectionViewController {
                 nextVC.blogs = (sender as? [BlogData])!
+            }
+        }
+        if segue.identifier == self.show_webview {
+            if let nextVC = segue.destination as? BlogViewController {
+                nextVC.blog_data = (sender as? BlogData)!
             }
         }
     }

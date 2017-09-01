@@ -63,15 +63,4 @@ class BlogData: NSObject {
     func addImage(image:UIImage) {
         self.photo = image
     }
-    
-    func printBlog() {
-        print(title ?? "")
-        print(author ?? "")
-        print(photo ?? "")
-        print(blog_description ?? "")
-        print(id ?? "")
-        print(date ?? "")
-        print(link ?? "")
-        print(photo)
-    }
 }

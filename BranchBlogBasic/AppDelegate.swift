@@ -9,11 +9,13 @@
 import UIKit
 import Branch
 
+let themeColor = UIColor(red: 0.188, green: 0.212, blue: 0.329, alpha: 1.0)
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    let themeColor = UIColor(red: 48, green: 54, blue: 84, alpha: 1.0)
+    var show_webview_directly = "showWebView"
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
@@ -23,11 +25,29 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print(params as? [String: AnyObject] ?? {})
             
             if error == nil && params?["+clicked_branch_link"] != nil && params?["blog_link"] != nil {
-                guard let blog = BlogData(id: (params?["id"] as? String)!, date: (params?["date"] as? String)!, title: (params?["title"] as? String)!, authorurl: params?["authorurl"] as? String, photourl: params?["image"] as? String, blog_description: (params?["blog_description"] as? String)! ,link: (params?["blog_link"] as? String)! ) else {
+                guard let blog = BlogData(id: (params?["id"] as? String)!,
+                                          date: (params?["date"] as? String)!,
+                                          title: (params?["title"] as? String)!,
+                                          authorurl: params?["authorurl"] as? String,
+                                          photourl: params?["image"] as? String,
+                                          blog_description: (params?["blog_description"] as? String)!,
+                                          link: (params?["blog_link"] as? String)! )
+                    else {
                     fatalError("Unable to instantiate BlogData")
                 }
-                let rootViewController = self.window!.rootViewController!;
-                rootViewController.performSegue(withIdentifier: "BlogViewSegue", sender: blog)
+                var rootViewController = self.window!.rootViewController!;
+                while ((rootViewController.presentedViewController) != nil) {
+                    rootViewController = rootViewController.presentedViewController!
+                }
+                if(rootViewController.isKind(of: SplashViewController.self)){
+                    rootViewController.performSegue(withIdentifier: "showWebView", sender: blog)
+                } else if (rootViewController.isKind(of: BlogCollectionViewController.self)) {
+                    rootViewController.performSegue(withIdentifier: "showWebView", sender: blog)
+                } else {
+                    (rootViewController as! BlogViewController).blog_data = blog
+                    (rootViewController as! BlogViewController).reload()
+                }
+                
             } else {
                 // load your normal view
             }
