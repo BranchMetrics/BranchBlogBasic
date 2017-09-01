@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Branch
 
 private let reuseIdentifier = "Cell"
 
@@ -97,6 +98,7 @@ class BlogCollectionViewController: UICollectionViewController, UICollectionView
     }
     
     func handleSwipe(gestureRecognizer: UIGestureRecognizer) {
+        Branch.getInstance().userCompletedAction("Blog_open")
         self.performSegue(withIdentifier: self.show_webview, sender:(gestureRecognizer.view as! BlogCollectionViewCell).blog_data)
     }
     

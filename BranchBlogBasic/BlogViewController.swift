@@ -16,6 +16,8 @@ class BlogViewController: UIViewController {
     @IBOutlet weak var BlogWebView: UIWebView!
 
     @IBAction func shareLink(_ sender: UIBarButtonItem) {
+        
+        Branch.getInstance().userCompletedAction("Share_blog")
         let branchUniversalObject: BranchUniversalObject = BranchUniversalObject(canonicalIdentifier: (blog_data?.link)!)
         branchUniversalObject.title = blog_data?.title
         branchUniversalObject.contentDescription = blog_data?.blog_description
