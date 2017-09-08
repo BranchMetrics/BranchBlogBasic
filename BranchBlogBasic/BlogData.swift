@@ -41,9 +41,15 @@ class BlogData: NSObject {
         self.link = link
     }
     
-    init?(id: String, date: String, title: String, authorurl: String?, photourl: String?, blog_description: String ,link: String ) {
+    init?(id: String,
+          date: String?,
+          title: String?,
+          authorurl: String?,
+          photourl: String?,
+          blog_description: String?,
+          link: String ) {
         
-        if title.isEmpty || id.isEmpty || link.isEmpty {
+        if link.isEmpty {
             return nil;
         }
         

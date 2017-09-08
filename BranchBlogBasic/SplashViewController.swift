@@ -72,14 +72,15 @@ class SplashViewController: UIViewController {
                 let date = (jsonblob as AnyObject)["date"] as! String
                 let link = (jsonblob as AnyObject)["link"] as! String
                 let title = ((jsonblob as AnyObject)["title"] as AnyObject)["rendered"] as! String
-                let description = ((jsonblob as AnyObject)["excerpt"] as AnyObject)["rendered"] as! String
+                let raw_description = ((jsonblob as AnyObject)["excerpt"] as AnyObject)["rendered"] as! String
+                let description = raw_description.replacingOccurrences(of:"<[^>]+>", with: "", options: .regularExpression, range: nil)
                 let media_url = ((((jsonblob as AnyObject)["_links"] as AnyObject)["wp:featuredmedia"] as! Array<Any>)[0] as AnyObject)["href"] as! String
                 let author_url = ((((jsonblob as AnyObject)["_links"] as AnyObject)["author"]as! Array<Any>)[0] as AnyObject)["href"] as! String
             
                 NetworkUtils.makeNetworkRequests(url: URL(string:media_url)!, closure: { (jsonreturned: Any,error: NSError?) -> Void in
                     var photourl : String?
                     if error == nil {
-                        photourl =  (((jsonreturned as AnyObject)["guid"] as AnyObject)["rendered"] as AnyObject) as? String
+                        photourl =  (jsonreturned as AnyObject)["source_url"] as? String
                     }
                     
                     guard let blog = BlogData(id: id, date: date, title: title, authorurl: author_url, photourl: photourl, blog_description: description ,link: link ) else {

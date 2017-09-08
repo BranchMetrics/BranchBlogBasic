@@ -26,11 +26,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             
             if error == nil && params?["+clicked_branch_link"] != nil && params?["blog_link"] != nil {
                 guard let blog = BlogData(id: (params?["id"] as? String)!,
-                                          date: (params?["date"] as? String)!,
-                                          title: (params?["title"] as? String)!,
-                                          authorurl: params?["authorurl"] as? String,
-                                          photourl: params?["image"] as? String,
-                                          blog_description: (params?["blog_description"] as? String)!,
+                                          date: (params?["date"] as? String),
+                                          title: (params?["$og_title"] as? String),
+                                          authorurl: (params?["authorurl"] as? String),
+                                          photourl: (params?["$og_image_url"] as? String),
+                                          blog_description: (params?["$og_description"] as? String),
                                           link: (params?["blog_link"] as? String)! )
                     else {
                     fatalError("Unable to instantiate BlogData")
