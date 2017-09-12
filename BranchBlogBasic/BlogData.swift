@@ -41,7 +41,7 @@ class BlogData: NSObject {
         self.link = link
     }
     
-    init?(id: String,
+    init?(id: String?,
           date: String?,
           title: String?,
           authorurl: String?,
