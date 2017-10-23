@@ -37,6 +37,7 @@
 		0A0BCF7F1BCB334C293A81EB /* Pods-BranchBlogBasicTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BranchBlogBasicTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BranchBlogBasicTests/Pods-BranchBlogBasicTests.release.xcconfig"; sourceTree = "<group>"; };
 		32ECACD12DFE9EC1EFEB37CD /* Pods-BranchBlogBasic.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BranchBlogBasic.release.xcconfig"; path = "Pods/Target Support Files/Pods-BranchBlogBasic/Pods-BranchBlogBasic.release.xcconfig"; sourceTree = "<group>"; };
 		356D14C91D462CC26EE59DF7 /* Pods-BranchBlogBasicTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BranchBlogBasicTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BranchBlogBasicTests/Pods-BranchBlogBasicTests.debug.xcconfig"; sourceTree = "<group>"; };
+		76A6DFFC4BB7DF3F69D2C97C /* Pods-BranchBlogBasic.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BranchBlogBasic.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BranchBlogBasic/Pods-BranchBlogBasic.debug.xcconfig"; sourceTree = "<group>"; };
 		9A0D8C5B1F57606400C77994 /* BlogCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlogCollectionViewCell.swift; sourceTree = "<group>"; };
 		9A0D8C5D1F579FF500C77994 /* BlogCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlogCollectionViewController.swift; sourceTree = "<group>"; };
 		9A0D8C5F1F57BD7000C77994 /* BlogHeaderCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlogHeaderCollectionReusableView.swift; sourceTree = "<group>"; };
@@ -54,8 +55,11 @@
 		9A6B47FE1F436A870087948F /* BlogData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlogData.swift; sourceTree = "<group>"; };
 		9A6B48021F43E4EB0087948F /* BlogViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BlogViewController.swift; sourceTree = "<group>"; };
 		9A746D621F44B35F00C82974 /* BranchBlogBasic.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = BranchBlogBasic.entitlements; sourceTree = "<group>"; };
+		9E49BE8EA158CF022654FF89 /* Pods-BranchBlogBasicTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BranchBlogBasicTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BranchBlogBasicTests/Pods-BranchBlogBasicTests.release.xcconfig"; sourceTree = "<group>"; };
+		A97EF2B60E49F7E8DA3EDD81 /* Pods-BranchBlogBasicTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BranchBlogBasicTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BranchBlogBasicTests/Pods-BranchBlogBasicTests.debug.xcconfig"; sourceTree = "<group>"; };
 		B5AB7D0B11B431622AA53089 /* Pods_BranchBlogBasicTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BranchBlogBasicTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE1D92DF44DF66BF6509BCC8 /* Pods-BranchBlogBasic.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BranchBlogBasic.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BranchBlogBasic/Pods-BranchBlogBasic.debug.xcconfig"; sourceTree = "<group>"; };
+		D52760FD7F68386B35F82E5A /* Pods-BranchBlogBasic.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BranchBlogBasic.release.xcconfig"; path = "Pods/Target Support Files/Pods-BranchBlogBasic/Pods-BranchBlogBasic.release.xcconfig"; sourceTree = "<group>"; };
 		F6C4E9F25E2A03C2FCDDC286 /* Pods_BranchBlogBasic.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BranchBlogBasic.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -79,6 +83,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		012530396F7FA9FFC60CD457 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				76A6DFFC4BB7DF3F69D2C97C /* Pods-BranchBlogBasic.debug.xcconfig */,
+				D52760FD7F68386B35F82E5A /* Pods-BranchBlogBasic.release.xcconfig */,
+				A97EF2B60E49F7E8DA3EDD81 /* Pods-BranchBlogBasicTests.debug.xcconfig */,
+				9E49BE8EA158CF022654FF89 /* Pods-BranchBlogBasicTests.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		4AAB6161DBEE9103D203FABF /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -97,6 +112,7 @@
 				9A6B47EE1F424CC00087948F /* BranchBlogBasicTests */,
 				9A6B47D81F424CC00087948F /* Products */,
 				A68511101CB96A61FC08A287 /* Frameworks */,
+				012530396F7FA9FFC60CD457 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -265,13 +281,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BranchBlogBasic-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		ADC72FEBDBBFC21A89450215 /* [CP] Copy Pods Resources */ = {
@@ -295,13 +314,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-BranchBlogBasicTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		D183794703D65E12D23D414F /* [CP] Embed Pods Frameworks */ = {
@@ -310,9 +332,12 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-BranchBlogBasic/Pods-BranchBlogBasic-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Branch/Branch.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Branch.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

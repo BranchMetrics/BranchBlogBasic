@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -30,14 +30,14 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             </activityIndicatorView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ygD-96-jR4">
-                                <rect key="frame" x="67" y="541" width="247" height="21"/>
+                                <rect key="frame" x="67" y="541" width="248" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xfe-YF-jsn">
-                                <rect key="frame" x="67" y="570" width="247" height="21"/>
+                                <rect key="frame" x="67" y="570" width="248" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -62,7 +62,7 @@
         <scene sceneID="DvE-4Y-NC8">
             <objects>
                 <collectionViewController id="qEw-fW-Nci" customClass="BlogCollectionViewController" customModule="BranchBlogBasic" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="VLP-Dh-9Eg">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="VLP-Dh-9Eg">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -106,7 +106,7 @@
                                     <outlet property="BlogTitle" destination="Dy9-5y-OdH" id="vmC-2o-S8a"/>
                                     <outlet property="blogTitle" destination="Dy9-5y-OdH" id="zuH-WL-i3n"/>
                                     <outlet property="imageView" destination="2Dx-Bj-83K" id="rCR-Bh-UM4"/>
-                                    <segue destination="rdl-Ed-INY" kind="presentation" identifier="showWebView" id="wui-gU-WcN"/>
+                                    <segue destination="rdl-Ed-INY" kind="presentation" identifier="showWebView" modalPresentationStyle="fullScreen" id="wui-gU-WcN"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -115,7 +115,7 @@
                             <autoresizingMask key="autoresizingMask"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Branch" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ket-aj-85K">
-                                    <rect key="frame" x="137" y="25.5" width="100.5" height="38.5"/>
+                                    <rect key="frame" x="138.5" y="25.5" width="97.5" height="38.5"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="32"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
@@ -171,7 +171,7 @@
                                         <barButtonItem key="leftBarButtonItem" title="Back" id="3Kv-LU-vxS">
                                             <color key="tintColor" red="0.84860074520111084" green="0.91825050115585327" blue="0.99306267499923706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <connections>
-                                                <segue destination="BYZ-38-t0r" kind="presentation" id="ueo-aM-LrK"/>
+                                                <action selector="backButtonPressed:" destination="rdl-Ed-INY" id="1gY-3S-qlT"/>
                                             </connections>
                                         </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" title="Share" id="7cw-OP-7pW">
@@ -213,6 +213,6 @@
         <image name="clear_branch_logo" width="1002" height="1002"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="b7d-BM-9XZ"/>
+        <segue reference="wui-gU-WcN"/>
     </inferredMetricsTieBreakers>
 </document>

@@ -66,7 +66,30 @@ class BlogCollectionViewController: UICollectionViewController, UICollectionView
         
         guard indexPath == largePhotoIndexPath else {
             cell.backgroundColor = UIColor.black
-            cell.imageView.image = blogs[(indexPath as NSIndexPath).row].photo
+            if let photo = blogs[(indexPath as NSIndexPath).row].photo {
+                cell.imageView.image = photo
+            } else{
+                let urlString = blogs[(indexPath as NSIndexPath).row].photourl!
+                guard let url = URL(string: urlString) else {
+                    fatalError("url not valid")
+                }
+                URLSession.shared.dataTask(with: url) { (data, response, error) in
+                    if error != nil {
+                        print("Failed fetching image:", error)
+                        return
+                    }
+                    
+                    guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+                        print("Not a proper HTTPURLResponse or statusCode")
+                        return
+                    }
+                    
+                    DispatchQueue.main.async {
+                        self.blogs[(indexPath as NSIndexPath).row].addImage(image: UIImage(data: data!)!)
+                        cell.imageView.image = self.blogs[(indexPath as NSIndexPath).row].photo
+                    }
+                    }.resume()
+            }
             cell.BlogTitle.text = blogs[(indexPath as NSIndexPath).row].title
             return cell
         }
@@ -76,6 +99,7 @@ class BlogCollectionViewController: UICollectionViewController, UICollectionView
         }
         
         cell.backgroundColor = UIColor.black
+        
         cell.imageView.image = blogs[(indexPath as NSIndexPath).row].photo
         cell.blog_data = blogs[(indexPath as NSIndexPath).row]
         cell.BlogTitle.text = blogs[(indexPath as NSIndexPath).row].title

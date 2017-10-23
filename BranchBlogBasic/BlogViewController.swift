@@ -44,11 +44,16 @@ class BlogViewController: UIViewController {
         BlogWebView.loadRequest(unwrap_url)
     }
     
+    @IBAction func backButtonPressed(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        DispatchQueue.main.async {
-            self.reload()
-        }
+        BlogWebView.loadHTMLString((blog_data?.blog_content)!, baseURL: nil)
+//        DispatchQueue.main.async {
+//            self.reload()
+//        }
         //Create a BUO on page load
         branchUniversalObject = BranchUniversalObject(canonicalIdentifier: (blog_data?.link)!)
         branchUniversalObject.title = blog_data?.title
@@ -58,6 +63,7 @@ class BlogViewController: UIViewController {
         branchUniversalObject.addMetadataKey("id", value: (blog_data?.id) ?? "")
         branchUniversalObject.addMetadataKey("date", value: (blog_data?.date) ?? "")
         branchUniversalObject.addMetadataKey("authorurl", value: (blog_data?.authorurl) ?? "")
+        branchUniversalObject.addMetadataKey("content", value: (blog_data?.blog_content) ?? "")
         branchUniversalObject.addMetadataKey("blog_link", value: ((blog_data?.link)!+utm_params))
         branchUniversalObject.automaticallyListOnSpotlight = true
         branchUniversalObject.userCompletedAction(BNCRegisterViewEvent)

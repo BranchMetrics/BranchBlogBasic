@@ -31,6 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                           authorurl: (params?["authorurl"] as? String),
                                           photourl: (params?["$og_image_url"] as? String),
                                           blog_description: (params?["$og_description"] as? String),
+                                          blog_content: (params?["$content"] as? String),
                                           link: (params?["blog_link"] as? String)! )
                     else {
                     fatalError("Unable to instantiate BlogData")
@@ -56,6 +57,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                           authorurl: (params?["authorurl"] as? String),
                                           photourl: (params?["$og_image_url"] as? String),
                                           blog_description: (params?["$og_description"] as? String),
+                                          blog_content: (params?["content"] as? String),
                                           link: canonical_url )
                     else {
                         fatalError("Unable to instantiate BlogData")

@@ -13,7 +13,7 @@ class SplashViewController: UIViewController {
     @IBOutlet weak var screenloader: UIActivityIndicatorView!
     @IBOutlet weak var alertLabel: UILabel!
     @IBOutlet weak var alertLabel2: UILabel!
-    let url: URL = URL(string: "https://blog.branch.io/wp-json/wp/v2/posts")!
+    let url: URL = URL(string: "https://blog.branch.io/wp-json/wp/v2/posts?_embed")!
     let bloglist_segue = "pushToBlogList"
     let show_webview = "showWebView"
     
@@ -74,38 +74,26 @@ class SplashViewController: UIViewController {
                 let title = ((jsonblob as AnyObject)["title"] as AnyObject)["rendered"] as! String
                 let raw_description = ((jsonblob as AnyObject)["excerpt"] as AnyObject)["rendered"] as! String
                 let description = raw_description.replacingOccurrences(of:"<[^>]+>", with: "", options: .regularExpression, range: nil)
-                let media_url = ((((jsonblob as AnyObject)["_links"] as AnyObject)["wp:featuredmedia"] as! Array<Any>)[0] as AnyObject)["href"] as! String
+                let content = ((jsonblob as AnyObject)["content"] as AnyObject)["rendered"] as! String
+                let photo_url = (((((((jsonblob as AnyObject)["_embedded"] as AnyObject) ["wp:featuredmedia"] as! Array<Any>)[0] as AnyObject) ["media_details"] as AnyObject)["sizes"] as AnyObject) ["medium_large"] as AnyObject)["source_url"] as! String
+//                print("\(#function) @@@@@ \(content)")
                 let author_url = ((((jsonblob as AnyObject)["_links"] as AnyObject)["author"]as! Array<Any>)[0] as AnyObject)["href"] as! String
             
-                NetworkUtils.makeNetworkRequests(url: URL(string:media_url)!, closure: { (jsonreturned: Any,error: NSError?) -> Void in
-                    var photourl : String?
-                    if error == nil {
-                        photourl =  (jsonreturned as AnyObject)["source_url"] as? String
-                    }
-                    
-                    guard let blog = BlogData(id: id, date: date, title: title, authorurl: author_url, photourl: photourl, blog_description: description ,link: link ) else {
-                        fatalError("Unable to instantiate BlogData")
-                    }
-                    
-                    NetworkUtils.makeNetworkRequestsForImages(url:URL(string:photourl!)!, closure:{ (image_returned: UIImage,error: NSError?) -> Void in
-                        var image = UIImage(named: "Branch_logo")
-                        if (error == nil) {
-                            image = image_returned
-                            blog.addImage(image: image!)
-                            blogs.append(blog)
-                            if(blogs.count == (jsonvalue as! Array<Any>).count) {
-                                self.screenloader.stopAnimating()
-                                self.performSegue(withIdentifier: self.bloglist_segue, sender:blogs)
-                            }
-                        }
-                    })
-                })
+                guard let blog = BlogData(id: id, date: date, title: title, authorurl: author_url, photourl: photo_url, blog_description: description, blog_content: content, link: link ) else {
+                    fatalError("Unable to instantiate BlogData")
+                }
+                blogs.append(blog)
             }
+            self.screenloader.stopAnimating()
+            self.performSegue(withIdentifier: self.bloglist_segue, sender:blogs)
         } else {
             screenloader.stopAnimating()
             alertLabel.text = "Your device appears to be offline."
             alertLabel2.text = "Double tap to reload"
             print(jsonvalue)
         }
+    }
+    func unwindFromBlogView(for unwindSegue: UIStoryboardSegue, towardsViewController subsequentVC: UIViewController) {
+        print("unwind back to the blog collection view")
     }
 }
