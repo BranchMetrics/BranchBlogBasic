@@ -21,7 +21,9 @@ class BlogCollectionViewCell: UICollectionViewCell {
         }
     }
     
-
+    override func prepareForReuse() {
+        imageView.image = nil
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()

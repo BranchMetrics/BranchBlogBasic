@@ -19,6 +19,7 @@ class SplashViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //making blog post call
         NetworkUtils.makeNetworkRequests(url:url, closure:prepareBlogData )
         screenloader.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
         screenloader.hidesWhenStopped = true
@@ -66,24 +67,7 @@ class SplashViewController: UIViewController {
     
     func prepareBlogData(_ jsonvalue: Any,_ error: Error?) {
         if error == nil {
-            var blogs = [BlogData]()
-            for jsonblob in jsonvalue as! Array<Any> {
-                let id =  ((jsonblob as AnyObject)["id"] as! NSNumber).stringValue
-                let date = (jsonblob as AnyObject)["date"] as! String
-                let link = (jsonblob as AnyObject)["link"] as! String
-                let title = ((jsonblob as AnyObject)["title"] as AnyObject)["rendered"] as! String
-                let raw_description = ((jsonblob as AnyObject)["excerpt"] as AnyObject)["rendered"] as! String
-                let description = raw_description.replacingOccurrences(of:"<[^>]+>", with: "", options: .regularExpression, range: nil)
-                let content = ((jsonblob as AnyObject)["content"] as AnyObject)["rendered"] as! String
-                let photo_url = (((((((jsonblob as AnyObject)["_embedded"] as AnyObject) ["wp:featuredmedia"] as! Array<Any>)[0] as AnyObject) ["media_details"] as AnyObject)["sizes"] as AnyObject) ["medium_large"] as AnyObject)["source_url"] as! String
-//                print("\(#function) @@@@@ \(content)")
-                let author_url = ((((jsonblob as AnyObject)["_links"] as AnyObject)["author"]as! Array<Any>)[0] as AnyObject)["href"] as! String
-            
-                guard let blog = BlogData(id: id, date: date, title: title, authorurl: author_url, photourl: photo_url, blog_description: description, blog_content: content, link: link ) else {
-                    fatalError("Unable to instantiate BlogData")
-                }
-                blogs.append(blog)
-            }
+            let blogs = NetworkUtils.handleBlogData(jsonvalue)
             self.screenloader.stopAnimating()
             self.performSegue(withIdentifier: self.bloglist_segue, sender:blogs)
         } else {

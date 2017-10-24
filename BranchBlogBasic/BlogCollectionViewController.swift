@@ -19,6 +19,14 @@ class BlogCollectionViewController: UICollectionViewController, UICollectionView
     fileprivate let itemsPerRow: CGFloat = 2
     let show_webview = "showWebView"
     var blogs = [BlogData]()
+    var categories = [Category]()
+    
+    var page = 1
+    
+    @IBOutlet weak var categoryPickerTextField: UITextField!
+    @IBOutlet var blogCollectionView: UICollectionView!
+    
+    var categoryPickerData = ["All", "test"]
     var largePhotoIndexPath: IndexPath? {
         didSet {
             var indexPaths = [IndexPath]()
@@ -38,6 +46,53 @@ class BlogCollectionViewController: UICollectionViewController, UICollectionView
                         animated: true)
                 }
             }
+        }
+    }
+    
+    override func viewDidLoad() {
+        
+        let categoryUrl: URL = URL(string: "https://blog.branch.io/wp-json/wp/v2/categories?hide_empty=1&per_page=20")!
+        NetworkUtils.makeNetworkRequests(url:categoryUrl, closure:handleCategories )
+        
+        let layout = blogCollectionView.collectionViewLayout as? UICollectionViewFlowLayout
+        layout?.sectionHeadersPinToVisibleBounds = true
+        categoryPickerTextField.loadDropdownData(data: categoryPickerData)
+    }
+    
+    func handleCategories(_ jsonvalue: Any,_ error: Error?) {
+        if error == nil {
+            categories = NetworkUtils.handleCategoryData(jsonvalue)
+            
+            //todo:: need to put these ina a dropdown and make selectable
+        } else {
+            print(jsonvalue)
+        }
+    }
+    override func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        
+        if offsetY * 1.2 > contentHeight - scrollView.frame.size.height {
+            print("trigger next page load")
+            loadMoreBlogPosts()
+        }
+    }
+    
+    func loadMoreBlogPosts() {
+        page+=1
+        let url: URL = URL(string: "https://blog.branch.io/wp-json/wp/v2/posts?_embed&page=\(page)")!
+        print(url)
+        //making blog post call
+        NetworkUtils.makeNetworkRequests(url:url, closure:getBlogPosts )
+    }
+    
+    func getBlogPosts(_ jsonvalue: Any,_ error: Error?) {
+        if error == nil {
+            blogs.append(contentsOf: NetworkUtils.handleBlogData(jsonvalue))
+            self.collectionView?.reloadData()
+//            blogs.append(NetworkUtils.handleBlogData(jsonvalue))
+        } else {
+            print(jsonvalue)
         }
     }
     
@@ -69,10 +124,14 @@ class BlogCollectionViewController: UICollectionViewController, UICollectionView
             if let photo = blogs[(indexPath as NSIndexPath).row].photo {
                 cell.imageView.image = photo
             } else{
-                let urlString = blogs[(indexPath as NSIndexPath).row].photourl!
-                guard let url = URL(string: urlString) else {
-                    fatalError("url not valid")
+                var urlString = blogs[(indexPath as NSIndexPath).row].photourl!
+                if urlString.isEmpty {
+                    urlString = "https://branch.io/img/logo_white.png"
                 }
+                if let url = URL(string: urlString) {
+//                guard let url = URL(string: urlString) else {
+//                    fatalError("url not valid")
+//                }
                 URLSession.shared.dataTask(with: url) { (data, response, error) in
                     if error != nil {
                         print("Failed fetching image:", error)
@@ -89,6 +148,7 @@ class BlogCollectionViewController: UICollectionViewController, UICollectionView
                         cell.imageView.image = self.blogs[(indexPath as NSIndexPath).row].photo
                     }
                     }.resume()
+                }
             }
             cell.BlogTitle.text = blogs[(indexPath as NSIndexPath).row].title
             return cell

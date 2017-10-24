@@ -124,6 +124,13 @@
                                     <rect key="frame" x="21" y="12" width="64" height="64"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 </imageView>
+                                <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="abt-Cg-aFi">
+                                    <rect key="frame" x="156" y="52" width="97" height="30"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <nil key="textColor"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <textInputTraits key="textInputTraits"/>
+                                </textField>
                             </subviews>
                             <color key="backgroundColor" red="0.11846397072076797" green="0.11858820170164108" blue="0.11848322302103043" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <constraints>
@@ -140,12 +147,14 @@
                         </connections>
                     </collectionView>
                     <connections>
+                        <outlet property="blogCollectionView" destination="VLP-Dh-9Eg" id="kSF-tg-HHN"/>
+                        <outlet property="categoryPickerTextField" destination="abt-Cg-aFi" id="SVS-cO-58e"/>
                         <outlet property="view" destination="VLP-Dh-9Eg" id="inJ-cQ-6rQ"/>
                     </connections>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1Dc-jy-qOZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1007" y="604"/>
+            <point key="canvasLocation" x="1005.6" y="603.14842578710648"/>
         </scene>
         <!--Blog View Controller-->
         <scene sceneID="55I-LV-xcI">

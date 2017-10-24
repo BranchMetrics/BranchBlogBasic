@@ -50,7 +50,9 @@ class BlogViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        BlogWebView.loadHTMLString((blog_data?.blog_content)!, baseURL: nil)
+        let newcontent = "<link rel='stylesheet' id='rppWidgetCss-group-css' href='https://1yjmqg26uh9k15zq0o1pderc-wpengine.netdna-ssl.com/wp-content/plugins/bwp-miflipboardnify/min/?f=wp-content/plugins/related-posts/style/widget.css,wp-content/plugins/exit-popup/css/exit-popup.css,wp-content/plugins/social-pug/assets/css/style-frontend.css,wp-content/plugins/cta/shared/shortcodes/css/frontend-render.css,wp-content/themes/salient/css/rgs.css,wp-content/themes/salient/css/font-awesome.min.css,wp-content/themes/salient-child/style.css,wp-content/themes/salient/css/prettyPhoto.css,wp-content/themes/salient/css/responsive.css,wp-content/themes/salient/css/ascend.css,wp-content/plugins/enlighter/resources/EnlighterJS.min.css&amp;ver=1497973011' type='text/css' media='all'> " + (blog_data?.blog_content!)!
+//        BlogWebView.loadHTMLString((blog_data?.blog_content)!, baseURL: nil)
+        BlogWebView.loadHTMLString(newcontent, baseURL: nil)
 //        DispatchQueue.main.async {
 //            self.reload()
 //        }
@@ -69,4 +71,10 @@ class BlogViewController: UIViewController {
         branchUniversalObject.userCompletedAction(BNCRegisterViewEvent)
     }
     
+}
+
+extension UITextField {
+    func loadDropdownData(data: [String]) {
+        self.inputView = CustomPickerView(pickerData: data, dropdownField: self)
+    }
 }

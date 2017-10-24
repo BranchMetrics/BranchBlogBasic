@@ -41,4 +41,51 @@ class NetworkUtils: NSObject {
             task.resume()
         }
     }
+    
+    class func handleBlogData(_ jsonValue: Any) -> [BlogData]{
+        var blogs = [BlogData]()
+        for jsonblob in jsonValue as! Array<Any> {
+            let id =  ((jsonblob as AnyObject)["id"] as! NSNumber).stringValue
+            let date = (jsonblob as AnyObject)["date"] as! String
+            let link = (jsonblob as AnyObject)["link"] as! String
+            let title = ((jsonblob as AnyObject)["title"] as AnyObject)["rendered"] as! String
+            
+            let raw_description = ((jsonblob as AnyObject)["excerpt"] as AnyObject)["rendered"] as! String
+            let description = raw_description.replacingOccurrences(of:"<[^>]+>", with: "", options: .regularExpression, range: nil)
+            let content = ((jsonblob as AnyObject)["content"] as AnyObject)["rendered"] as! String
+            var photo_url:String = ""
+            if let featuredMedia = (((jsonblob as AnyObject)["_embedded"] as AnyObject) ["wp:featuredmedia"] as? Array<Any>) {
+                if let medLarge = ((((featuredMedia[0] as AnyObject) ["media_details"] as AnyObject)["sizes"] as AnyObject) ["medium_large"] as AnyObject)["source_url"] as? String {
+                    photo_url = medLarge
+                } else if let med = ((((featuredMedia[0] as AnyObject) ["media_details"] as AnyObject)["sizes"] as AnyObject) ["medium"] as AnyObject)["source_url"] as? String {
+                    photo_url = med
+                }
+            }
+            
+            let author_url = ((((jsonblob as AnyObject)["_links"] as AnyObject)["author"]as! Array<Any>)[0] as AnyObject)["href"] as! String
+            
+            guard let blog = BlogData(id: id, date: date, title: title, authorurl: author_url, photourl: photo_url, blog_description: description, blog_content: content, link: link ) else {
+                fatalError("Unable to instantiate BlogData")
+            }
+            blogs.append(blog)
+        }
+        return blogs
+        
+    }
+    
+    class func handleCategoryData(_ jsonValue: Any) -> [Category]{
+        var categories = [Category]()
+        for jsonblob in jsonValue as! Array<Any> {
+            let id =  ((jsonblob as AnyObject)["id"] as! NSNumber).stringValue
+            let name = (jsonblob as AnyObject)["name"] as! String
+            let count = (jsonblob as AnyObject)["count"] as! Int
+            
+            guard let category = Category(id: id, name: name, count: count) else {
+                fatalError("Unable to instantiate Category")
+            }
+            categories.append(category)
+        }
+        return categories
+        
+    }
 }
