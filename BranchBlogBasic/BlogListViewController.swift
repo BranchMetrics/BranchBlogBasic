@@ -14,7 +14,7 @@ private let reuseIdentifier = "Cell"
 class BlogListViewController: UIViewController, UICollectionViewDelegateFlowLayout, UIGestureRecognizerDelegate {
     
     fileprivate let reuseIdentifier = "BlogDataCell"
-    fileprivate let reuseHeaderIdentifier = "HeaderView"
+//    fileprivate let reuseHeaderIdentifier = "HeaderView"
     fileprivate let sectionInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 5.0, right: 0.0)
     fileprivate let itemsPerRow: CGFloat = 2
     let show_webview = "showWebView"
@@ -29,7 +29,7 @@ class BlogListViewController: UIViewController, UICollectionViewDelegateFlowLayo
     @IBOutlet var blogCollectionView: UICollectionView!
     var categoryPicker: UIPickerView!
     
-    var categoryPickerData = ["All"]
+    var categoryPickerData = ["Select Topic"]
 //    var largePhotoIndexPath: IndexPath? {
 //        didSet {
 //            var indexPaths = [IndexPath]()
@@ -60,8 +60,8 @@ class BlogListViewController: UIViewController, UICollectionViewDelegateFlowLayo
         let categoryUrl: URL = URL(string: "https://blog.branch.io/wp-json/wp/v2/categories?hide_empty=1&per_page=20")!
         NetworkUtils.makeNetworkRequests(url:categoryUrl, closure:handleCategories )
         
-        let layout = blogCollectionView.collectionViewLayout as? UICollectionViewFlowLayout
-        layout?.sectionHeadersPinToVisibleBounds = true
+//        let layout = blogCollectionView.collectionViewLayout as? UICollectionViewFlowLayout
+//        layout?.sectionHeadersPinToVisibleBounds = true
         
         if( traitCollection.forceTouchCapability == .available){
             
@@ -202,20 +202,20 @@ class BlogListViewController: UIViewController, UICollectionViewDelegateFlowLayo
 }
 
 extension BlogListViewController:  UICollectionViewDelegate, UICollectionViewDataSource{
-    func collectionView(_ collectionView: UICollectionView,
-                        viewForSupplementaryElementOfKind kind: String,
-                        at indexPath: IndexPath) -> UICollectionReusableView {
-        switch kind {
-        case UICollectionElementKindSectionHeader:
-            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
-                                                                             withReuseIdentifier: reuseHeaderIdentifier,
-                                                                             for: indexPath) as! BlogHeaderCollectionReusableView
-            headerView.HeaderTitle.text = "Branch"
-            return headerView
-        default:
-            assert(false, "Unexpected element kind")
-        }
-    }
+//    func collectionView(_ collectionView: UICollectionView,
+//                        viewForSupplementaryElementOfKind kind: String,
+//                        at indexPath: IndexPath) -> UICollectionReusableView {
+//        switch kind {
+//        case UICollectionElementKindSectionHeader:
+//            let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind,
+//                                                                             withReuseIdentifier: reuseHeaderIdentifier,
+//                                                                             for: indexPath) as! BlogHeaderCollectionReusableView
+//            headerView.HeaderTitle.text = "Branch"
+//            return headerView
+//        default:
+//            assert(false, "Unexpected element kind")
+//        }
+//    }
     
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
