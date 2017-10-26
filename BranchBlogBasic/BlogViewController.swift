@@ -72,9 +72,3 @@ class BlogViewController: UIViewController {
     }
     
 }
-
-extension UITextField {
-    func loadDropdownData(data: [String]) {
-        self.inputView = CustomPickerView(pickerData: data, dropdownField: self)
-    }
-}

@@ -56,7 +56,7 @@ class BlogCollectionViewController: UICollectionViewController, UICollectionView
         
         let layout = blogCollectionView.collectionViewLayout as? UICollectionViewFlowLayout
         layout?.sectionHeadersPinToVisibleBounds = true
-        categoryPickerTextField.loadDropdownData(data: categoryPickerData)
+//        categoryPickerTextField.loadDropdownData(data: categoryPickerData)
     }
     
     func handleCategories(_ jsonvalue: Any,_ error: Error?) {

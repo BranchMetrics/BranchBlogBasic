@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0FB5ED6250E035565119721A /* Pods_BranchBlogBasicTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B5AB7D0B11B431622AA53089 /* Pods_BranchBlogBasicTests.framework */; };
 		1C0D9EB31F9FF6B500FA5A34 /* CustomPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0D9EB21F9FF6B500FA5A34 /* CustomPickerView.swift */; };
+		1C0D9EB51FA0100700FA5A34 /* BlogListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C0D9EB41FA0100700FA5A34 /* BlogListViewController.swift */; };
 		1C89B8D11F9FAB2600B6543C /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1C89B8D01F9FAB2600B6543C /* Category.swift */; };
 		9800F62ED4044DCDF22A8C8C /* Pods_BranchBlogBasic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F6C4E9F25E2A03C2FCDDC286 /* Pods_BranchBlogBasic.framework */; };
 		9A0D8C5C1F57606400C77994 /* BlogCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0D8C5B1F57606400C77994 /* BlogCollectionViewCell.swift */; };
@@ -38,6 +39,7 @@
 /* Begin PBXFileReference section */
 		0A0BCF7F1BCB334C293A81EB /* Pods-BranchBlogBasicTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BranchBlogBasicTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-BranchBlogBasicTests/Pods-BranchBlogBasicTests.release.xcconfig"; sourceTree = "<group>"; };
 		1C0D9EB21F9FF6B500FA5A34 /* CustomPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomPickerView.swift; sourceTree = "<group>"; };
+		1C0D9EB41FA0100700FA5A34 /* BlogListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlogListViewController.swift; sourceTree = "<group>"; };
 		1C89B8D01F9FAB2600B6543C /* Category.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		32ECACD12DFE9EC1EFEB37CD /* Pods-BranchBlogBasic.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BranchBlogBasic.release.xcconfig"; path = "Pods/Target Support Files/Pods-BranchBlogBasic/Pods-BranchBlogBasic.release.xcconfig"; sourceTree = "<group>"; };
 		356D14C91D462CC26EE59DF7 /* Pods-BranchBlogBasicTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BranchBlogBasicTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BranchBlogBasicTests/Pods-BranchBlogBasicTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -154,6 +156,7 @@
 				1C0D9EB21F9FF6B500FA5A34 /* CustomPickerView.swift */,
 				9A0D8C5B1F57606400C77994 /* BlogCollectionViewCell.swift */,
 				9A0D8C5D1F579FF500C77994 /* BlogCollectionViewController.swift */,
+				1C0D9EB41FA0100700FA5A34 /* BlogListViewController.swift */,
 				9A0D8C5F1F57BD7000C77994 /* BlogHeaderCollectionReusableView.swift */,
 			);
 			path = BranchBlogBasic;
@@ -404,6 +407,7 @@
 				1C89B8D11F9FAB2600B6543C /* Category.swift in Sources */,
 				9A6B47DB1F424CC00087948F /* AppDelegate.swift in Sources */,
 				9A0D8C601F57BD7000C77994 /* BlogHeaderCollectionReusableView.swift in Sources */,
+				1C0D9EB51FA0100700FA5A34 /* BlogListViewController.swift in Sources */,
 				9A5C19051F5600DD002E17A2 /* NetworkUtils.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

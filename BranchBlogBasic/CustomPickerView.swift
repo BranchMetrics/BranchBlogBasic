@@ -13,13 +13,14 @@ class CustomPickerView : UIPickerView, UIPickerViewDataSource, UIPickerViewDeleg
     
     var pickerData : [String]!
     var pickerTextField : UITextField!
+    var selectionHandler : ((_ selectedText: String, _ row: Int) -> Void)?
+
     
-    init(pickerData: [String], dropdownField: UITextField) {
+    init(pickerData: [String], dropdownField: UITextField, barButtons: [UIBarButtonItem]?) {
         super.init(frame: CGRect.zero)
         
         self.pickerData = pickerData
         self.pickerTextField = dropdownField
-        
         self.delegate = self
         self.dataSource = self
         
@@ -27,11 +28,28 @@ class CustomPickerView : UIPickerView, UIPickerViewDataSource, UIPickerViewDeleg
             if pickerData.count > 0 {
                 self.pickerTextField.text = self.pickerData[0]
                 self.pickerTextField.isEnabled = true
+                
+                // ToolBar
+                let toolBar = UIToolbar()
+                toolBar.barStyle = .default
+                toolBar.isTranslucent = true
+                toolBar.tintColor = UIColor(red: 92/255, green: 216/255, blue: 255/255, alpha: 1)
+                toolBar.sizeToFit()
+                toolBar.setItems(barButtons, animated: false)
+                toolBar.isUserInteractionEnabled = true
+                self.pickerTextField.inputAccessoryView = toolBar
             } else {
                 self.pickerTextField.text = nil
                 self.pickerTextField.isEnabled = false
             }
         }
+    }
+    
+    convenience init(pickerData: [String], dropdownField: UITextField, barButtons: [UIBarButtonItem]?, onSelect selectionHandler : @escaping (_ selectedText: String, _ row: Int) -> Void) {
+        
+        self.init(pickerData: pickerData, dropdownField: dropdownField, barButtons: barButtons)
+        
+        self.selectionHandler = selectionHandler
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -51,8 +69,16 @@ class CustomPickerView : UIPickerView, UIPickerViewDataSource, UIPickerViewDeleg
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        pickerTextField.text = pickerData[row]
+//        pickerTextField.text = pickerData[row]
+        selectionHandler!(pickerData[row], row)
     }
     
     
+}
+
+
+extension UITextField {
+    func loadDropdownData(data: [String], barButtons: [UIBarButtonItem]?, onSelect selectionHandler : @escaping (_ selectedText: String, _ row: Int) -> Void) {
+        self.inputView = CustomPickerView(pickerData: data, dropdownField: self, barButtons: barButtons, onSelect: selectionHandler)
+    }
 }

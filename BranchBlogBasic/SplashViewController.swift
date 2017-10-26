@@ -14,7 +14,7 @@ class SplashViewController: UIViewController {
     @IBOutlet weak var alertLabel: UILabel!
     @IBOutlet weak var alertLabel2: UILabel!
     let url: URL = URL(string: "https://blog.branch.io/wp-json/wp/v2/posts?_embed")!
-    let bloglist_segue = "pushToBlogList"
+    let bloglist_segue = "showBlogListViewSegue"
     let show_webview = "showWebView"
     
     override func viewDidLoad() {
@@ -54,8 +54,9 @@ class SplashViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == self.bloglist_segue {
-            if let nextVC = segue.destination as? BlogCollectionViewController {
+            if let nextVC = segue.destination as? BlogListViewController {
                 nextVC.blogs = (sender as? [BlogData])!
+                print("test444 !@!@!@!@")
             }
         }
         if segue.identifier == self.show_webview {
@@ -68,8 +69,11 @@ class SplashViewController: UIViewController {
     func prepareBlogData(_ jsonvalue: Any,_ error: Error?) {
         if error == nil {
             let blogs = NetworkUtils.handleBlogData(jsonvalue)
+            
             self.screenloader.stopAnimating()
-            self.performSegue(withIdentifier: self.bloglist_segue, sender:blogs)
+            DispatchQueue.main.async {
+                self.performSegue(withIdentifier: self.bloglist_segue, sender:blogs)
+            }
         } else {
             screenloader.stopAnimating()
             alertLabel.text = "Your device appears to be offline."
