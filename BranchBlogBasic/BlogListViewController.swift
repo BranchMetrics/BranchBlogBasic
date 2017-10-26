@@ -18,6 +18,7 @@ class BlogListViewController: UIViewController, UICollectionViewDelegateFlowLayo
     fileprivate let sectionInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 5.0, right: 0.0)
     fileprivate let itemsPerRow: CGFloat = 2
     let show_webview = "showWebView"
+    let pop_webview = "popBlogView"
     var blogs = [BlogData]()
     var categories = [Category]()
     var selected:Int?
@@ -29,27 +30,27 @@ class BlogListViewController: UIViewController, UICollectionViewDelegateFlowLayo
     var categoryPicker: UIPickerView!
     
     var categoryPickerData = ["All"]
-    var largePhotoIndexPath: IndexPath? {
-        didSet {
-            var indexPaths = [IndexPath]()
-            if let largePhotoIndexPath = largePhotoIndexPath {
-                indexPaths.append(largePhotoIndexPath as IndexPath)
-            }
-            if let oldValue = oldValue {
-                indexPaths.append(oldValue as IndexPath)
-            }
-            blogCollectionView?.performBatchUpdates({
-                self.blogCollectionView?.reloadItems(at: indexPaths)
-            }) { completed in
-                if let largePhotoIndexPath = self.largePhotoIndexPath {
-                    self.blogCollectionView?.scrollToItem(
-                        at: largePhotoIndexPath as IndexPath,
-                        at: .centeredVertically,
-                        animated: true)
-                }
-            }
-        }
-    }
+//    var largePhotoIndexPath: IndexPath? {
+//        didSet {
+//            var indexPaths = [IndexPath]()
+//            if let largePhotoIndexPath = largePhotoIndexPath {
+//                indexPaths.append(largePhotoIndexPath as IndexPath)
+//            }
+//            if let oldValue = oldValue {
+//                indexPaths.append(oldValue as IndexPath)
+//            }
+//            blogCollectionView?.performBatchUpdates({
+//                self.blogCollectionView?.reloadItems(at: indexPaths)
+//            }) { completed in
+//                if let largePhotoIndexPath = self.largePhotoIndexPath {
+//                    self.blogCollectionView?.scrollToItem(
+//                        at: largePhotoIndexPath as IndexPath,
+//                        at: .centeredVertically,
+//                        animated: true)
+//                }
+//            }
+//        }
+//    }
     
     override func viewDidLoad() {
         if blogs.isEmpty{
@@ -62,6 +63,11 @@ class BlogListViewController: UIViewController, UICollectionViewDelegateFlowLayo
         let layout = blogCollectionView.collectionViewLayout as? UICollectionViewFlowLayout
         layout?.sectionHeadersPinToVisibleBounds = true
         
+        if( traitCollection.forceTouchCapability == .available){
+            
+            registerForPreviewing(with: self, sourceView: view)
+            
+        }
     }
     
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
@@ -127,7 +133,9 @@ class BlogListViewController: UIViewController, UICollectionViewDelegateFlowLayo
     func getBlogPosts(_ jsonvalue: Any,_ error: Error?) {
         if error == nil {
             blogs.append(contentsOf: NetworkUtils.handleBlogData(jsonvalue))
-            self.blogCollectionView?.reloadData()
+            DispatchQueue.main.async {
+               self.blogCollectionView?.reloadData()
+            }
         } else {
             print(jsonvalue)
         }
@@ -164,7 +172,14 @@ class BlogListViewController: UIViewController, UICollectionViewDelegateFlowLayo
         
         if segue.identifier == self.show_webview {
             if let nextVC = segue.destination as? BlogViewController {
+                print("I'm inside here$%$%$%")
                 nextVC.blog_data = (sender as? BlogData)!
+            }
+        }
+        
+        if segue.identifier == self.pop_webview {
+            if let nextVC = segue.destination as? BlogViewController {
+                nextVC.blog_data = (sender as? BlogCollectionViewCell)!.blog_data
             }
         }
     }
@@ -246,7 +261,7 @@ extension BlogListViewController:  UICollectionViewDelegate, UICollectionViewDat
     func collectionView(_ collectionView: UICollectionView,
                         shouldSelectItemAt indexPath: IndexPath) -> Bool {
         
-        largePhotoIndexPath = largePhotoIndexPath == indexPath ? nil : indexPath
+//        largePhotoIndexPath = largePhotoIndexPath == indexPath ? nil : indexPath
         return false
     }
     
@@ -303,6 +318,7 @@ extension BlogListViewController:  UICollectionViewDelegate, UICollectionViewDat
             }
         }
         cell.BlogTitle.text = blogs[(indexPath as NSIndexPath).row].title
+        cell.blog_data = blogs[(indexPath as NSIndexPath).row]
         return cell
         
 //        guard indexPath == largePhotoIndexPath else {
@@ -355,4 +371,30 @@ extension BlogListViewController:  UICollectionViewDelegate, UICollectionViewDat
     }
     
     
+}
+
+extension BlogListViewController: UIViewControllerPreviewingDelegate{
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
+        guard let indexPath = blogCollectionView?.indexPathForItem(at: location) else { return nil }
+        
+        guard let cell = blogCollectionView?.cellForItem(at: indexPath) else { return nil }
+        
+        guard let detailVC = storyboard?.instantiateViewController(withIdentifier: "blog_view_controller") as? BlogViewController else { return nil }
+        
+        let blog = blogs[indexPath.row]
+        detailVC.blog_data = blog
+        
+        detailVC.preferredContentSize = CGSize(width: 0.0, height: 300)
+        
+        previewingContext.sourceRect = cell.frame
+        
+        return detailVC
+    }
+    
+    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
+        show(viewControllerToCommit, sender: self)
+//        present(viewControllerToCommit, animated: true, completion: nil)
+    }
+    
+
 }

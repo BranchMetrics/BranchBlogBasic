@@ -31,7 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                                           authorurl: (params?["authorurl"] as? String),
                                           photourl: (params?["$og_image_url"] as? String),
                                           blog_description: (params?["$og_description"] as? String),
-                                          blog_content: (params?["$content"] as? String),
+                                          blog_content: (params?["content"] as? String),
                                           link: (params?["blog_link"] as? String)! )
                     else {
                     fatalError("Unable to instantiate BlogData")
@@ -42,7 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
                 if(rootViewController.isKind(of: SplashViewController.self)){
                     rootViewController.performSegue(withIdentifier: "showWebView", sender: blog)
-                } else if (rootViewController.isKind(of: BlogCollectionViewController.self)) {
+                } else if (rootViewController.isKind(of: BlogListViewController.self)) {
                     rootViewController.performSegue(withIdentifier: "showWebView", sender: blog)
                 } else {
                     (rootViewController as! BlogViewController).blog_data = blog
@@ -68,7 +68,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
                 if(rootViewController.isKind(of: SplashViewController.self)){
                     rootViewController.performSegue(withIdentifier: "showWebView", sender: blog)
-                } else if (rootViewController.isKind(of: BlogCollectionViewController.self)) {
+                } else if (rootViewController.isKind(of: BlogListViewController.self)) {
                     rootViewController.performSegue(withIdentifier: "showWebView", sender: blog)
                 } else {
                     (rootViewController as! BlogViewController).blog_data = blog

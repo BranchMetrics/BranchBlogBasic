@@ -15,6 +15,8 @@ class BlogViewController: UIViewController {
     var blog_data: BlogData?
     var branchUniversalObject: BranchUniversalObject!
     let utm_params: String = "?utm_medium=app&utm_source=branch-blog-app-ios"
+    var id:String?
+    
     @IBOutlet weak var BlogWebView: UIWebView!
 
     @IBAction func shareLink(_ sender: UIBarButtonItem) {
@@ -50,12 +52,37 @@ class BlogViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let newcontent = "<link rel='stylesheet' id='rppWidgetCss-group-css' href='https://1yjmqg26uh9k15zq0o1pderc-wpengine.netdna-ssl.com/wp-content/plugins/bwp-miflipboardnify/min/?f=wp-content/plugins/related-posts/style/widget.css,wp-content/plugins/exit-popup/css/exit-popup.css,wp-content/plugins/social-pug/assets/css/style-frontend.css,wp-content/plugins/cta/shared/shortcodes/css/frontend-render.css,wp-content/themes/salient/css/rgs.css,wp-content/themes/salient/css/font-awesome.min.css,wp-content/themes/salient-child/style.css,wp-content/themes/salient/css/prettyPhoto.css,wp-content/themes/salient/css/responsive.css,wp-content/themes/salient/css/ascend.css,wp-content/plugins/enlighter/resources/EnlighterJS.min.css&amp;ver=1497973011' type='text/css' media='all'> " + (blog_data?.blog_content!)!
-//        BlogWebView.loadHTMLString((blog_data?.blog_content)!, baseURL: nil)
+        
+        if blog_data != nil {
+            loadBlogPost()
+        } else {
+            if let id = id{
+                let url: URL = URL(string: "https://blog.branch.io/wp-json/wp/v2/posts?id=\(id)")!
+                NetworkUtils.makeNetworkRequests(url:url, closure:getBlogPosts )
+            }
+        }
+    }
+    
+    func getBlogPosts(_ jsonvalue: Any,_ error: Error?) {
+        if error == nil {
+//            blogs.append(contentsOf: NetworkUtils.handleBlogData(jsonvalue))
+            loadBlogPost()
+        } else {
+            print(jsonvalue)
+        }
+    }
+    
+    func loadBlogPost(){
+        let newcontent = "<html><head><link rel='stylesheet' id='rppWidgetCss-group-css' href='https://1yjmqg26uh9k15zq0o1pderc-wpengine.netdna-ssl.com/wp-content/plugins/bwp-miflipboardnify/min/?f=wp-content/plugins/related-posts/style/widget.css,wp-content/plugins/exit-popup/css/exit-popup.css,wp-content/plugins/social-pug/assets/css/style-frontend.css,wp-content/plugins/cta/shared/shortcodes/css/frontend-render.css,wp-content/themes/salient/css/rgs.css,wp-content/themes/salient/css/font-awesome.min.css,wp-content/themes/salient-child/style.css,wp-content/themes/salient/css/prettyPhoto.css,wp-content/themes/salient/css/responsive.css,wp-content/themes/salient/css/ascend.css,wp-content/plugins/enlighter/resources/EnlighterJS.min.css&amp;ver=1497973011' type='text/css' media='all'> </head> " +
+            "<html><body><div class='container main-content'><h1 class='entry-title'>\((blog_data?.title!)!)</h1>" +
+            (blog_data?.blog_content!)! + "</div></div></body></html>"
+        
+        
+        //        BlogWebView.loadHTMLString((blog_data?.blog_content)!, baseURL: nil)
         BlogWebView.loadHTMLString(newcontent, baseURL: nil)
-//        DispatchQueue.main.async {
-//            self.reload()
-//        }
+        //        DispatchQueue.main.async {
+        //            self.reload()
+        //        }
         //Create a BUO on page load
         branchUniversalObject = BranchUniversalObject(canonicalIdentifier: (blog_data?.link)!)
         branchUniversalObject.title = blog_data?.title

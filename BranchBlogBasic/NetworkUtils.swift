@@ -44,7 +44,10 @@ class NetworkUtils: NSObject {
     
     class func handleBlogData(_ jsonValue: Any) -> [BlogData]{
         var blogs = [BlogData]()
-        for jsonblob in jsonValue as! Array<Any> {
+        guard let json = jsonValue as? Array<Any> else {
+            return blogs
+        }
+        for jsonblob in json {
             let id =  ((jsonblob as AnyObject)["id"] as! NSNumber).stringValue
             let date = (jsonblob as AnyObject)["date"] as! String
             let link = (jsonblob as AnyObject)["link"] as! String

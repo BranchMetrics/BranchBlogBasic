@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="b2B-FL-WlL">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13174"/>
+        <capability name="Segues with Peek and Pop" minToolsVersion="7.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -22,7 +23,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Branch_logo" translatesAutoresizingMaskIntoConstraints="NO" id="u4O-0p-CYP">
-                                <rect key="frame" x="67" y="214" width="240" height="240"/>
+                                <rect key="frame" x="66" y="214" width="240" height="240"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="u58-fb-Suc">
@@ -50,7 +51,6 @@
                         <outlet property="alertLabel" destination="ygD-96-jR4" id="0eX-YF-Avl"/>
                         <outlet property="alertLabel2" destination="Xfe-YF-jsn" id="N8l-wM-mxX"/>
                         <outlet property="screenloader" destination="u58-fb-Suc" id="u1S-VJ-XMA"/>
-                        <segue destination="qEw-fW-Nci" kind="presentation" identifier="pushToBlogList" id="g9a-qy-RxV"/>
                         <segue destination="rdl-Ed-INY" kind="show" identifier="showWebView" id="b7d-BM-9XZ"/>
                         <segue destination="b2B-FL-WlL" kind="show" identifier="showBlogListViewSegue" id="89V-Zv-zNP"/>
                     </connections>
@@ -58,96 +58,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-487" y="85"/>
-        </scene>
-        <!--Blog Collection View Controller-->
-        <scene sceneID="DvE-4Y-NC8">
-            <objects>
-                <collectionViewController id="qEw-fW-Nci" customClass="BlogCollectionViewController" customModule="BranchBlogBasic" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="VLP-Dh-9Eg">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <inset key="scrollIndicatorInsets" minX="0.0" minY="10" maxX="0.0" maxY="0.0"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="5" minimumInteritemSpacing="0.0" id="eSr-3N-862">
-                            <size key="itemSize" width="200" height="200"/>
-                            <size key="headerReferenceSize" width="50" height="90"/>
-                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                            <inset key="sectionInset" minX="0.0" minY="5" maxX="0.0" maxY="0.0"/>
-                        </collectionViewFlowLayout>
-                        <cells>
-                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="BlogDataCell2" id="MTm-7p-ce3">
-                                <rect key="frame" x="87.5" y="95" width="200" height="200"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                    <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <imageView multipleTouchEnabled="YES" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2Dx-Bj-83K">
-                                            <rect key="frame" x="-0.5" y="0.0" width="200" height="200"/>
-                                        </imageView>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" layoutMarginsFollowReadableWidth="YES" text="" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Dy9-5y-OdH">
-                                            <rect key="frame" x="10" y="100" width="180" height="0.0"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <nil key="textColor"/>
-                                            <nil key="highlightedColor"/>
-                                            <size key="shadowOffset" width="4" height="1"/>
-                                        </label>
-                                    </subviews>
-                                </view>
-                                <constraints>
-                                    <constraint firstItem="Dy9-5y-OdH" firstAttribute="centerY" secondItem="MTm-7p-ce3" secondAttribute="centerY" id="9hz-AE-X39"/>
-                                    <constraint firstItem="Dy9-5y-OdH" firstAttribute="leading" secondItem="MTm-7p-ce3" secondAttribute="leading" constant="10" id="IAZ-PJ-d5w"/>
-                                    <constraint firstAttribute="trailing" secondItem="2Dx-Bj-83K" secondAttribute="trailing" id="LAv-R1-xFl"/>
-                                    <constraint firstItem="2Dx-Bj-83K" firstAttribute="leading" secondItem="MTm-7p-ce3" secondAttribute="leading" id="MDB-sb-66F"/>
-                                    <constraint firstAttribute="bottom" secondItem="2Dx-Bj-83K" secondAttribute="bottom" id="cmn-vf-uEx"/>
-                                    <constraint firstAttribute="trailing" secondItem="Dy9-5y-OdH" secondAttribute="trailing" constant="10" id="gZh-LQ-92T"/>
-                                    <constraint firstItem="2Dx-Bj-83K" firstAttribute="top" secondItem="MTm-7p-ce3" secondAttribute="top" id="oTj-Z9-AO0"/>
-                                </constraints>
-                                <connections>
-                                    <outlet property="BlogTitle" destination="Dy9-5y-OdH" id="vmC-2o-S8a"/>
-                                    <outlet property="blogTitle" destination="Dy9-5y-OdH" id="zuH-WL-i3n"/>
-                                    <outlet property="imageView" destination="2Dx-Bj-83K" id="rCR-Bh-UM4"/>
-                                    <segue destination="rdl-Ed-INY" kind="presentation" identifier="showWebViewOld" modalPresentationStyle="fullScreen" id="wui-gU-WcN"/>
-                                </connections>
-                            </collectionViewCell>
-                        </cells>
-                        <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="HeaderView2" id="9F2-Fc-3N6">
-                            <rect key="frame" x="0.0" y="0.0" width="375" height="90"/>
-                            <autoresizingMask key="autoresizingMask"/>
-                            <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Branch" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ket-aj-85K">
-                                    <rect key="frame" x="138.5" y="25.5" width="97.5" height="38.5"/>
-                                    <fontDescription key="fontDescription" type="system" pointSize="32"/>
-                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    <nil key="highlightedColor"/>
-                                </label>
-                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="clear_branch_logo" translatesAutoresizingMaskIntoConstraints="NO" id="Ad5-nv-cg5">
-                                    <rect key="frame" x="21" y="12" width="64" height="64"/>
-                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                                </imageView>
-                            </subviews>
-                            <color key="backgroundColor" red="0.11846397072076797" green="0.11858820170164108" blue="0.11848322302103043" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            <constraints>
-                                <constraint firstItem="ket-aj-85K" firstAttribute="centerX" secondItem="9F2-Fc-3N6" secondAttribute="centerX" id="aTV-Ic-ddM"/>
-                                <constraint firstItem="ket-aj-85K" firstAttribute="centerY" secondItem="9F2-Fc-3N6" secondAttribute="centerY" id="bnP-ZG-pX5"/>
-                            </constraints>
-                            <connections>
-                                <outlet property="HeaderTitle" destination="ket-aj-85K" id="tbK-6x-s9b"/>
-                            </connections>
-                        </collectionReusableView>
-                        <connections>
-                            <outlet property="dataSource" destination="qEw-fW-Nci" id="al5-PG-7ex"/>
-                            <outlet property="delegate" destination="qEw-fW-Nci" id="A2i-CA-hIx"/>
-                        </connections>
-                    </collectionView>
-                    <connections>
-                        <outlet property="blogCollectionView" destination="VLP-Dh-9Eg" id="kSF-tg-HHN"/>
-                        <outlet property="view" destination="VLP-Dh-9Eg" id="inJ-cQ-6rQ"/>
-                    </connections>
-                </collectionViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="1Dc-jy-qOZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1060" y="1339"/>
         </scene>
         <!--Blog List View Controller-->
         <scene sceneID="Veg-rh-GL2">
@@ -161,13 +71,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QIL-bC-MMg">
-                                <rect key="frame" x="0.0" y="20" width="375" height="30"/>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="All" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QIL-bC-MMg">
+                                <rect key="frame" x="10" y="20" width="355" height="30"/>
+                                <color key="backgroundColor" red="0.11764705882352941" green="0.11764705882352941" blue="0.11764705882352941" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="Veq-tz-RRp"/>
                                 </constraints>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="BqB-ad-kJz">
@@ -214,6 +125,10 @@
                                             <outlet property="BlogTitle" destination="Mhm-RL-QWj" id="19n-gH-PTK"/>
                                             <outlet property="blogTitle" destination="Mhm-RL-QWj" id="jej-1j-C0k"/>
                                             <outlet property="imageView" destination="uoD-uq-VXP" id="kUz-bS-WEN"/>
+                                            <segue destination="rdl-Ed-INY" kind="show" identifier="popBlogView" id="r8f-Il-ygD">
+                                                <segue key="commit" inheritsFrom="parent" id="Umc-Gp-E1a"/>
+                                                <segue key="preview" inheritsFrom="commit" id="NSf-4L-ifv"/>
+                                            </segue>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -252,7 +167,7 @@
                             <constraint firstItem="BqB-ad-kJz" firstAttribute="width" secondItem="0hK-D1-wTT" secondAttribute="width" id="7Ma-Gd-23e"/>
                             <constraint firstItem="QIL-bC-MMg" firstAttribute="top" secondItem="W9A-4Q-b9r" secondAttribute="bottom" id="BvC-Hf-mka"/>
                             <constraint firstItem="BqB-ad-kJz" firstAttribute="top" secondItem="QIL-bC-MMg" secondAttribute="bottom" id="Hso-IW-MJv"/>
-                            <constraint firstItem="QIL-bC-MMg" firstAttribute="width" secondItem="0hK-D1-wTT" secondAttribute="width" id="II8-x2-WDp"/>
+                            <constraint firstItem="QIL-bC-MMg" firstAttribute="width" secondItem="0hK-D1-wTT" secondAttribute="width" constant="-20" id="II8-x2-WDp"/>
                             <constraint firstItem="BqB-ad-kJz" firstAttribute="centerX" secondItem="0hK-D1-wTT" secondAttribute="centerX" id="U0o-Jh-wjl"/>
                             <constraint firstItem="QIL-bC-MMg" firstAttribute="centerX" secondItem="BqB-ad-kJz" secondAttribute="centerX" id="c6B-go-aRg"/>
                             <constraint firstItem="8Kn-l2-NAN" firstAttribute="top" secondItem="BqB-ad-kJz" secondAttribute="bottom" id="oeo-ZA-EU8"/>
@@ -334,6 +249,6 @@
         <image name="clear_branch_logo" width="1002" height="1002"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="uQ7-z7-SKh"/>
+        <segue reference="r8f-Il-ygD"/>
     </inferredMetricsTieBreakers>
 </document>
