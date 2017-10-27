@@ -15,7 +15,7 @@ class BlogListViewController: UIViewController, UICollectionViewDelegateFlowLayo
     
     fileprivate let reuseIdentifier = "BlogDataCell"
 //    fileprivate let reuseHeaderIdentifier = "HeaderView"
-    fileprivate let sectionInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 5.0, right: 0.0)
+    fileprivate let sectionInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 10.0, right: 0.0)
     fileprivate let itemsPerRow: CGFloat = 2
     let show_webview = "showWebView"
     let pop_webview = "popBlogView"
@@ -29,7 +29,7 @@ class BlogListViewController: UIViewController, UICollectionViewDelegateFlowLayo
     @IBOutlet var blogCollectionView: UICollectionView!
     var categoryPicker: UIPickerView!
     
-    var categoryPickerData = ["Select Topic"]
+    var categoryPickerData = ["All Topics"]
 //    var largePhotoIndexPath: IndexPath? {
 //        didSet {
 //            var indexPaths = [IndexPath]()
@@ -233,7 +233,7 @@ extension BlogListViewController:  UICollectionViewDelegate, UICollectionViewDat
 //            size.width -= (sectionInsets.left + sectionInsets.right)
 //            return self.sizeToFillWidthOfSize(photo!,size)
 //        }
-        let paddingSpace = 2.5 * (itemsPerRow)
+        let paddingSpace = 5.0 * (itemsPerRow)
         let availableWidth = view.frame.width - paddingSpace
         let widthPerItem = availableWidth / itemsPerRow
         return CGSize(width: widthPerItem, height: widthPerItem * 1.5)

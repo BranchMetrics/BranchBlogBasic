@@ -74,6 +74,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     (rootViewController as! BlogViewController).blog_data = blog
                     (rootViewController as! BlogViewController).reload()
                 }
+            } else if error == nil && params?["+clicked_branch_link"] != nil && params?["$web_only"] != nil{
+                let canonical_url = (params?["$canonical_url"] as? String)!.replacingOccurrences(of: "test=true", with: "")
+                guard let blog = BlogData(id: (params?["id"] as? String),
+                                          date: (params?["date"] as? String),
+                                          title: (params?["$og_title"] as? String),
+                                          authorurl: (params?["authorurl"] as? String),
+                                          photourl: (params?["$og_image_url"] as? String),
+                                          blog_description: (params?["$og_description"] as? String),
+                                          blog_content: (params?["content"] as? String),
+                                          link: canonical_url )
+                    else {
+                        fatalError("Unable to instantiate BlogData")
+                }
+                var rootViewController = self.window!.rootViewController!;
+                while ((rootViewController.presentedViewController) != nil) {
+                    rootViewController = rootViewController.presentedViewController!
+                }
+                if(rootViewController.isKind(of: SplashViewController.self)){
+                    rootViewController.performSegue(withIdentifier: "showWebView", sender: blog)
+                } else if (rootViewController.isKind(of: BlogListViewController.self)) {
+                    rootViewController.performSegue(withIdentifier: "showWebView", sender: blog)
+                } else {
+                    (rootViewController as! BlogViewController).blog_data = blog
+                    (rootViewController as! BlogViewController).reload()
+                }
             } else {
                 // load your normal view
             }
