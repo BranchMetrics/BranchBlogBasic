@@ -58,7 +58,6 @@ class BlogListViewController: UIViewController, UICollectionViewDelegateFlowLayo
         let contentHeight = scrollView.contentSize.height
         
         if offsetY > contentHeight - scrollView.frame.size.height {
-            print("trigger next page load")
             page+=1
             loadMoreBlogPosts(url: setGetBlogUrl(category: selected))
         }
@@ -157,7 +156,6 @@ class BlogListViewController: UIViewController, UICollectionViewDelegateFlowLayo
         
         if segue.identifier == self.show_webview {
             if let nextVC = segue.destination as? BlogViewController {
-                print("I'm inside here$%$%$%")
                 nextVC.blog_data = (sender as? BlogData)!
             }
         }

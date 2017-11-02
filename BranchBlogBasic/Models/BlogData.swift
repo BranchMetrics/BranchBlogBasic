@@ -46,7 +46,7 @@ class BlogData: NSObject {
     init?(id: String?,
           date: String?,
           title: String?,
-          authorurl: String?,
+          author: String?,
           photourl: String?,
           blog_description: String?,
           blog_content:String?,
@@ -57,7 +57,7 @@ class BlogData: NSObject {
         }
         
         self.title = title
-        self.author = authorurl
+        self.author = author
         self.photourl = photourl
         self.blog_description = blog_description
         self.blog_content = blog_content

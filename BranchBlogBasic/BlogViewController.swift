@@ -65,7 +65,6 @@ class BlogViewController: UIViewController {
     
     func getBlogPosts(_ jsonvalue: Any,_ error: Error?) {
         if error == nil {
-//            blogs.append(contentsOf: NetworkUtils.handleBlogData(jsonvalue))
             loadBlogPost()
         } else {
             print(jsonvalue)
@@ -81,9 +80,7 @@ class BlogViewController: UIViewController {
         
         
         BlogWebView.loadHTMLString(newcontent, baseURL: nil)
-        //        DispatchQueue.main.async {
-        //            self.reload()
-        //        }
+        
         //Create a BUO on page load
         branchUniversalObject = BranchUniversalObject(canonicalIdentifier: (blog_data?.link)!)
         branchUniversalObject.title = blog_data?.title
@@ -92,7 +89,7 @@ class BlogViewController: UIViewController {
         branchUniversalObject.imageUrl = blog_data?.photourl
         branchUniversalObject.addMetadataKey("id", value: (blog_data?.id) ?? "")
         branchUniversalObject.addMetadataKey("date", value: (blog_data?.date) ?? "")
-        branchUniversalObject.addMetadataKey("authorurl", value: (blog_data?.authorurl) ?? "")
+        branchUniversalObject.addMetadataKey("author", value: (blog_data?.author) ?? "")
         branchUniversalObject.addMetadataKey("content", value: (blog_data?.blog_content) ?? "")
         branchUniversalObject.addMetadataKey("blog_link", value: ((blog_data?.link)!+utm_params))
         branchUniversalObject.automaticallyListOnSpotlight = true

@@ -68,14 +68,13 @@ class NetworkUtils: NSObject {
 //            let author = (((jsonblob as AnyObject)["_embedded"] as AnyObject) ["author"] as AnyObject)["name"] as? String
             if let authorArray = (((jsonblob as AnyObject)["_embedded"] as AnyObject) ["author"] as? Array<Any>) {
                 if let name = (authorArray[0] as AnyObject) ["name"] as? String {
-                    print("***** \(name)")
                     authName = name
                 }
             }
             
 //            let author_url = ((((jsonblob as AnyObject)["_links"] as AnyObject)["author"]as! Array<Any>)[0] as AnyObject)["href"] as! String
             
-            guard let blog = BlogData(id: id, date: date, title: title, authorurl: authName, photourl: photo_url, blog_description: description, blog_content: content, link: link ) else {
+            guard let blog = BlogData(id: id, date: date, title: title, author: authName, photourl: photo_url, blog_description: description, blog_content: content, link: link ) else {
                 fatalError("Unable to instantiate BlogData")
             }
             blogs.append(blog)

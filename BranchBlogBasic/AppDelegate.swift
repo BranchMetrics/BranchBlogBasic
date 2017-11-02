@@ -23,6 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().isTranslucent = false
         UINavigationBar.appearance().barTintColor = UIColor(red: 0.12, green: 0.12, blue: 0.12, alpha: 1.0)
         UINavigationBar.appearance().tintColor = UIColor.white
+        UIApplication.shared.statusBarStyle = .lightContent
         
         UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
 //        window?.tintColor = themeColor
@@ -36,7 +37,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 guard let blog = BlogData(id: (params?["id"] as? String)!,
                                           date: (params?["date"] as? String),
                                           title: (params?["$og_title"] as? String),
-                                          authorurl: (params?["authorurl"] as? String),
+                                          author: (params?["author"] as? String),
                                           photourl: (params?["$og_image_url"] as? String),
                                           blog_description: (params?["$og_description"] as? String),
                                           blog_content: (params?["content"] as? String),
@@ -65,7 +66,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 guard let blog = BlogData(id: (params?["id"] as? String),
                                           date: (params?["date"] as? String),
                                           title: (params?["$og_title"] as? String),
-                                          authorurl: (params?["authorurl"] as? String),
+                                          author: (params?["author"] as? String),
                                           photourl: (params?["$og_image_url"] as? String),
                                           blog_description: (params?["$og_description"] as? String),
                                           blog_content: (params?["content"] as? String),
