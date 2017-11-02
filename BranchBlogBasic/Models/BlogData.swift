@@ -15,6 +15,7 @@ class BlogData: NSObject {
     var photo: UIImage?
     var photourl: String?
     var blog_description: String?
+    var blog_content: String?
     var author: String?
     var authorurl:String?
     var id: String?
@@ -26,7 +27,7 @@ class BlogData: NSObject {
         static let photo = "photo"
     }
     
-    init?(title: String, author: String, photo: UIImage?, blog_description: String,id: String,date: String,link: String ) {
+    init?(title: String, author: String, photo: UIImage?, blog_description: String, blog_content: String, id: String,date: String,link: String ) {
         
         if title.isEmpty || id.isEmpty || link.isEmpty {
             return nil;
@@ -37,6 +38,7 @@ class BlogData: NSObject {
         self.photo = photo
         self.blog_description = blog_description
         self.id = id
+        self.blog_content = blog_content
         self.date = date
         self.link = link
     }
@@ -44,9 +46,10 @@ class BlogData: NSObject {
     init?(id: String?,
           date: String?,
           title: String?,
-          authorurl: String?,
+          author: String?,
           photourl: String?,
           blog_description: String?,
+          blog_content:String?,
           link: String ) {
         
         if link.isEmpty {
@@ -54,9 +57,10 @@ class BlogData: NSObject {
         }
         
         self.title = title
-        self.authorurl = authorurl
+        self.author = author
         self.photourl = photourl
         self.blog_description = blog_description
+        self.blog_content = blog_content
         self.id = id
         self.date = date
         self.link = link

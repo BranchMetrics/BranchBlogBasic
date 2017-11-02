@@ -13,12 +13,13 @@ class SplashViewController: UIViewController {
     @IBOutlet weak var screenloader: UIActivityIndicatorView!
     @IBOutlet weak var alertLabel: UILabel!
     @IBOutlet weak var alertLabel2: UILabel!
-    let url: URL = URL(string: "https://blog.branch.io/wp-json/wp/v2/posts")!
-    let bloglist_segue = "pushToBlogList"
+    let url: URL = URL(string: "https://blog.branch.io/wp-json/wp/v2/posts?_embed")!
+    let bloglist_segue = "showBlogListViewSegue"
     let show_webview = "showWebView"
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //making blog post call
         NetworkUtils.makeNetworkRequests(url:url, closure:prepareBlogData )
         screenloader.activityIndicatorViewStyle = UIActivityIndicatorViewStyle.gray
         screenloader.hidesWhenStopped = true
@@ -53,8 +54,9 @@ class SplashViewController: UIViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if segue.identifier == self.bloglist_segue {
-            if let nextVC = segue.destination as? BlogCollectionViewController {
+            if let nextVC = segue.destination as? BlogListViewController {
                 nextVC.blogs = (sender as? [BlogData])!
+                print("test444 !@!@!@!@")
             }
         }
         if segue.identifier == self.show_webview {
@@ -66,40 +68,11 @@ class SplashViewController: UIViewController {
     
     func prepareBlogData(_ jsonvalue: Any,_ error: Error?) {
         if error == nil {
-            var blogs = [BlogData]()
-            for jsonblob in jsonvalue as! Array<Any> {
-                let id =  ((jsonblob as AnyObject)["id"] as! NSNumber).stringValue
-                let date = (jsonblob as AnyObject)["date"] as! String
-                let link = (jsonblob as AnyObject)["link"] as! String
-                let title = ((jsonblob as AnyObject)["title"] as AnyObject)["rendered"] as! String
-                let raw_description = ((jsonblob as AnyObject)["excerpt"] as AnyObject)["rendered"] as! String
-                let description = raw_description.replacingOccurrences(of:"<[^>]+>", with: "", options: .regularExpression, range: nil)
-                let media_url = ((((jsonblob as AnyObject)["_links"] as AnyObject)["wp:featuredmedia"] as! Array<Any>)[0] as AnyObject)["href"] as! String
-                let author_url = ((((jsonblob as AnyObject)["_links"] as AnyObject)["author"]as! Array<Any>)[0] as AnyObject)["href"] as! String
+            let blogs = NetworkUtils.handleBlogData(jsonvalue)
             
-                NetworkUtils.makeNetworkRequests(url: URL(string:media_url)!, closure: { (jsonreturned: Any,error: NSError?) -> Void in
-                    var photourl : String?
-                    if error == nil {
-                        photourl =  (jsonreturned as AnyObject)["source_url"] as? String
-                    }
-                    
-                    guard let blog = BlogData(id: id, date: date, title: title, authorurl: author_url, photourl: photourl, blog_description: description ,link: link ) else {
-                        fatalError("Unable to instantiate BlogData")
-                    }
-                    
-                    NetworkUtils.makeNetworkRequestsForImages(url:URL(string:photourl!)!, closure:{ (image_returned: UIImage,error: NSError?) -> Void in
-                        var image = UIImage(named: "Branch_logo")
-                        if (error == nil) {
-                            image = image_returned
-                            blog.addImage(image: image!)
-                            blogs.append(blog)
-                            if(blogs.count == (jsonvalue as! Array<Any>).count) {
-                                self.screenloader.stopAnimating()
-                                self.performSegue(withIdentifier: self.bloglist_segue, sender:blogs)
-                            }
-                        }
-                    })
-                })
+            self.screenloader.stopAnimating()
+            DispatchQueue.main.async {
+                self.performSegue(withIdentifier: self.bloglist_segue, sender:blogs)
             }
         } else {
             screenloader.stopAnimating()
@@ -107,5 +80,8 @@ class SplashViewController: UIViewController {
             alertLabel2.text = "Double tap to reload"
             print(jsonvalue)
         }
+    }
+    func unwindFromBlogView(for unwindSegue: UIStoryboardSegue, towardsViewController subsequentVC: UIViewController) {
+        print("unwind back to the blog collection view")
     }
 }

@@ -16,16 +16,18 @@ class BlogCollectionViewCell: UICollectionViewCell {
     
     override var isSelected: Bool {
         didSet {
-            self.BlogTitle.alpha = self.isSelected ? 1.0 : 0
-            self.imageView.alpha = self.isSelected ? 0.3 : 1
+//            self.BlogTitle.alpha = self.isSelected ? 1.0 : 0
+//            self.imageView.alpha = self.isSelected ? 0.5 : 0.5
         }
     }
     
-
+    override func prepareForReuse() {
+        imageView.image = nil
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        BlogTitle.textColor = UIColor.white
+//        BlogTitle.textColor = UIColor.white
         isSelected = false
     }
 }

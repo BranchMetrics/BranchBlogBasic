@@ -16,10 +16,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var show_webview_directly = "showWebView"
+    var storyboard : UIStoryboard?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        window?.tintColor = themeColor
+        UINavigationBar.appearance().isTranslucent = false
+        UINavigationBar.appearance().barTintColor = UIColor(red: 0.12, green: 0.12, blue: 0.12, alpha: 1.0)
+        UINavigationBar.appearance().tintColor = UIColor.white
+        UIApplication.shared.statusBarStyle = .lightContent
+        
+        UINavigationBar.appearance().titleTextAttributes = [NSForegroundColorAttributeName: UIColor.white]
+//        window?.tintColor = themeColor
+        
+        self.storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         
         Branch.getInstance().initSession(launchOptions: launchOptions) { params, error in
             print(params as? [String: AnyObject] ?? {})
@@ -28,9 +37,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 guard let blog = BlogData(id: (params?["id"] as? String)!,
                                           date: (params?["date"] as? String),
                                           title: (params?["$og_title"] as? String),
-                                          authorurl: (params?["authorurl"] as? String),
+                                          author: (params?["author"] as? String),
                                           photourl: (params?["$og_image_url"] as? String),
                                           blog_description: (params?["$og_description"] as? String),
+                                          blog_content: (params?["content"] as? String),
                                           link: (params?["blog_link"] as? String)! )
                     else {
                     fatalError("Unable to instantiate BlogData")
@@ -39,13 +49,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 while ((rootViewController.presentedViewController) != nil) {
                     rootViewController = rootViewController.presentedViewController!
                 }
-                if(rootViewController.isKind(of: SplashViewController.self)){
-                    rootViewController.performSegue(withIdentifier: "showWebView", sender: blog)
-                } else if (rootViewController.isKind(of: BlogCollectionViewController.self)) {
+                if(rootViewController.isKind(of: BlogListViewController.self)) {
+                    print("@@@performing here")
                     rootViewController.performSegue(withIdentifier: "showWebView", sender: blog)
                 } else {
-                    (rootViewController as! BlogViewController).blog_data = blog
-                    (rootViewController as! BlogViewController).reload()
+//                    (rootViewController as! BlogViewController).blog_data = blog
+//                    (rootViewController as! BlogViewController).reload()
+                    let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "blog_view_controller") as? BlogViewController
+                    nextVC?.blog_data = blog
+                    (rootViewController as! UINavigationController).pushViewController(nextVC!, animated: false)
+
                 }
                 
             } else if error == nil && params?["+clicked_branch_link"] != nil && params?["$canonical_url"] != nil{
@@ -53,9 +66,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 guard let blog = BlogData(id: (params?["id"] as? String),
                                           date: (params?["date"] as? String),
                                           title: (params?["$og_title"] as? String),
-                                          authorurl: (params?["authorurl"] as? String),
+                                          author: (params?["author"] as? String),
                                           photourl: (params?["$og_image_url"] as? String),
                                           blog_description: (params?["$og_description"] as? String),
+                                          blog_content: (params?["content"] as? String),
                                           link: canonical_url )
                     else {
                         fatalError("Unable to instantiate BlogData")
@@ -64,13 +78,32 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 while ((rootViewController.presentedViewController) != nil) {
                     rootViewController = rootViewController.presentedViewController!
                 }
-                if(rootViewController.isKind(of: SplashViewController.self)){
-                    rootViewController.performSegue(withIdentifier: "showWebView", sender: blog)
-                } else if (rootViewController.isKind(of: BlogCollectionViewController.self)) {
+                if(rootViewController.isKind(of: BlogListViewController.self)) {
                     rootViewController.performSegue(withIdentifier: "showWebView", sender: blog)
                 } else {
-                    (rootViewController as! BlogViewController).blog_data = blog
-                    (rootViewController as! BlogViewController).reload()
+//                    (rootViewController as! BlogViewController).blog_data = blog
+//                    (rootViewController as! BlogViewController).reload()
+                    let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "blog_view_controller") as? BlogViewController
+                    nextVC?.blog_data = blog
+                    (rootViewController as! UINavigationController).pushViewController(nextVC!, animated: false)
+                }
+            } else if error == nil && params?["+clicked_branch_link"] != nil && params?["$web_only"] != nil{
+                let originalUrl = (params?["$original_url"] as? String)!.replacingOccurrences(of: "test=true", with: "")
+//                let webOnlyLink = canonical_url
+                
+                var rootViewController = self.window!.rootViewController!;
+                while ((rootViewController.presentedViewController) != nil) {
+                    rootViewController = rootViewController.presentedViewController!
+                }
+                if(rootViewController.isKind(of: BlogListViewController.self)) {
+                    rootViewController.performSegue(withIdentifier: "showGeneralWebViewSegue", sender: originalUrl)
+                } else {
+                    print("@@@performing here444 \(originalUrl)")
+                    let nextVC = self.storyboard?.instantiateViewController(withIdentifier: "general_view_controller") as? GeneralWebViewController
+                    nextVC?.webOnlyLink = originalUrl
+                    (rootViewController as! UINavigationController).pushViewController(nextVC!, animated: false)
+//                    (rootViewController as! GeneralWebViewController).webOnlyLink = originalUrl
+//                    (rootViewController as! BlogViewController).reload()
                 }
             } else {
                 // load your normal view
