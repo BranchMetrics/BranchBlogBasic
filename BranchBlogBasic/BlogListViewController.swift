@@ -14,11 +14,11 @@ private let reuseIdentifier = "Cell"
 class BlogListViewController: UIViewController, UICollectionViewDelegateFlowLayout, UIGestureRecognizerDelegate {
     
     fileprivate let reuseIdentifier = "BlogDataCell"
-//    fileprivate let reuseHeaderIdentifier = "HeaderView"
     fileprivate let sectionInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 10.0, right: 0.0)
     fileprivate let itemsPerRow: CGFloat = 2
     let show_webview = "showWebView"
     let pop_webview = "popBlogView"
+    let generalWebview = "showGeneralWebViewSegue"
     var blogs = [BlogData]()
     var categories = [Category]()
     var selected:Int?
@@ -29,39 +29,22 @@ class BlogListViewController: UIViewController, UICollectionViewDelegateFlowLayo
     @IBOutlet var blogCollectionView: UICollectionView!
     var categoryPicker: UIPickerView!
     
-    var categoryPickerData = ["All Topics"]
-//    var largePhotoIndexPath: IndexPath? {
-//        didSet {
-//            var indexPaths = [IndexPath]()
-//            if let largePhotoIndexPath = largePhotoIndexPath {
-//                indexPaths.append(largePhotoIndexPath as IndexPath)
-//            }
-//            if let oldValue = oldValue {
-//                indexPaths.append(oldValue as IndexPath)
-//            }
-//            blogCollectionView?.performBatchUpdates({
-//                self.blogCollectionView?.reloadItems(at: indexPaths)
-//            }) { completed in
-//                if let largePhotoIndexPath = self.largePhotoIndexPath {
-//                    self.blogCollectionView?.scrollToItem(
-//                        at: largePhotoIndexPath as IndexPath,
-//                        at: .centeredVertically,
-//                        animated: true)
-//                }
-//            }
-//        }
-//    }
+    var categoryPickerData = ["All Topics ▼"]
     
     override func viewDidLoad() {
+        let logo = UIImage(named: "branch_logo_WH")
+        let imageView = UIImageView(image:logo)
+        imageView.contentMode = .scaleAspectFit
+        self.navigationItem.titleView = imageView
+        
+        
+        
         if blogs.isEmpty{
            loadMoreBlogPosts(url: setGetBlogUrl(category: selected))
         }
         
         let categoryUrl: URL = URL(string: "https://blog.branch.io/wp-json/wp/v2/categories?hide_empty=1&per_page=20")!
         NetworkUtils.makeNetworkRequests(url:categoryUrl, closure:handleCategories )
-        
-//        let layout = blogCollectionView.collectionViewLayout as? UICollectionViewFlowLayout
-//        layout?.sectionHeadersPinToVisibleBounds = true
         
         if( traitCollection.forceTouchCapability == .available){
             
@@ -91,8 +74,6 @@ class BlogListViewController: UIViewController, UICollectionViewDelegateFlowLayo
                 }
             }
             DispatchQueue.main.async {
-                
-                
                 // Adding Button ToolBar
                 let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(BlogListViewController.doneClick))
                 let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
@@ -100,7 +81,6 @@ class BlogListViewController: UIViewController, UICollectionViewDelegateFlowLayo
                 
                 self.categoryPickerTextField.loadDropdownData(data: self.categoryPickerData, barButtons: [cancelButton, spaceButton, doneButton], onSelect: self.pickerSelectionResponse)
             }
-            //todo:: need to put these ina a dropdown and make selectable
         } else {
             print(jsonvalue)
         }
@@ -112,7 +92,7 @@ class BlogListViewController: UIViewController, UICollectionViewDelegateFlowLayo
     }
     
     func setGetBlogUrl(category: Int?) -> String{
-        var url = "https://blog.branch.io/wp-json/wp/v2/posts?_embed&page=\(page)"
+        var url = "https://blog.branch.io/wp-json/wp/v2/posts?_embed&page=\(page)&lang=en"
         if let cat = category{
             if cat > 1{
                 url += "&categories=\(categories[cat-1].id!)"
@@ -151,6 +131,11 @@ class BlogListViewController: UIViewController, UICollectionViewDelegateFlowLayo
         self.performSegue(withIdentifier: self.show_webview, sender:(gestureRecognizer.view as! BlogCollectionViewCell).blog_data)
     }
     
+    func handleTap(tapRecognizer: UITapGestureRecognizer) {
+        Branch.getInstance().userCompletedAction("Blog_open")
+        self.performSegue(withIdentifier: self.show_webview, sender:(tapRecognizer.view as! BlogCollectionViewCell).blog_data)
+    }
+    
     //Enlarging Image
     func sizeToFillWidthOfSize(_ photo:UIImage,_ size:CGSize) -> CGSize {
         
@@ -180,6 +165,12 @@ class BlogListViewController: UIViewController, UICollectionViewDelegateFlowLayo
         if segue.identifier == self.pop_webview {
             if let nextVC = segue.destination as? BlogViewController {
                 nextVC.blog_data = (sender as? BlogCollectionViewCell)!.blog_data
+            }
+        }
+        
+        if segue.identifier == self.generalWebview {
+            if let nextVC = segue.destination as? GeneralWebViewController {
+                nextVC.webOnlyLink = sender as? String
             }
         }
     }
@@ -225,14 +216,7 @@ extension BlogListViewController:  UICollectionViewDelegate, UICollectionViewDat
             let availableHeight = view.frame.height / 2
             return CGSize(width: availableWidth, height: availableHeight)
         }
-//        if indexPath == largePhotoIndexPath as IndexPath? {
-//            let photo = blogs[(indexPath as NSIndexPath).row].photo
-//            var size = collectionView.bounds.size
-//            size.height -= topLayoutGuide.length
-//            size.height -= (sectionInsets.top + sectionInsets.right)
-//            size.width -= (sectionInsets.left + sectionInsets.right)
-//            return self.sizeToFillWidthOfSize(photo!,size)
-//        }
+        
         let paddingSpace = 5.0 * (itemsPerRow)
         let availableWidth = view.frame.width - paddingSpace
         let widthPerItem = availableWidth / itemsPerRow
@@ -260,8 +244,6 @@ extension BlogListViewController:  UICollectionViewDelegate, UICollectionViewDat
     
     func collectionView(_ collectionView: UICollectionView,
                         shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        
-//        largePhotoIndexPath = largePhotoIndexPath == indexPath ? nil : indexPath
         return false
     }
     
@@ -286,11 +268,6 @@ extension BlogListViewController:  UICollectionViewDelegate, UICollectionViewDat
         cell.imageView.layer.shadowRadius = 2
         cell.isUserInteractionEnabled = true
         
-//        var view = UIView(frame: cell.frame)
-//        view.layer.borderWidth = 1
-//        view.layer.borderColor = UIColor.gray.cgColor
-//
-//        cell.backgroundView = view
         if let photo = blogs[(indexPath as NSIndexPath).row].photo {
             cell.imageView.image = photo
         } else{
@@ -319,55 +296,11 @@ extension BlogListViewController:  UICollectionViewDelegate, UICollectionViewDat
         }
         cell.BlogTitle.text = blogs[(indexPath as NSIndexPath).row].title
         cell.blog_data = blogs[(indexPath as NSIndexPath).row]
-        return cell
         
-//        guard indexPath == largePhotoIndexPath else {
-//            if let photo = blogs[(indexPath as NSIndexPath).row].photo {
-//                cell.imageView.image = photo
-//            } else{
-//                var urlString = blogs[(indexPath as NSIndexPath).row].photourl!
-//                if urlString.isEmpty {
-//                    urlString = "https://branch.io/img/logo_white.png"
-//                }
-//                if let url = URL(string: urlString) {
-//                    URLSession.shared.dataTask(with: url) { (data, response, error) in
-//                        if error != nil {
-//                            print("Failed fetching image:", error)
-//                            return
-//                        }
-//
-//                        guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
-//                            print("Not a proper HTTPURLResponse or statusCode")
-//                            return
-//                        }
-//
-//                        DispatchQueue.main.async {
-//                            self.blogs[(indexPath as NSIndexPath).row].addImage(image: UIImage(data: data!)!)
-//                            cell.imageView.image = self.blogs[(indexPath as NSIndexPath).row].photo
-//                        }
-//                        }.resume()
-//                }
-//            }
-//            cell.BlogTitle.text = blogs[(indexPath as NSIndexPath).row].title
-//            return cell
-//        }
-//
-//        if indexPath == largePhotoIndexPath {
-//            cell.isSelected = !cell.isSelected
-//        }
-//
-////        cell.backgroundColor = UIColor.black
-//
-//        cell.imageView.image = blogs[(indexPath as NSIndexPath).row].photo
-//        cell.blog_data = blogs[(indexPath as NSIndexPath).row]
-//        cell.BlogTitle.text = blogs[(indexPath as NSIndexPath).row].title
-//
-//        let gestureRecognizer = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe))
-//        gestureRecognizer.direction = UISwipeGestureRecognizerDirection.left
-//        gestureRecognizer.delegate = self as UIGestureRecognizerDelegate
-//        cell.addGestureRecognizer(gestureRecognizer)
-//
-//        return cell
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(handleTap))
+        cell.addGestureRecognizer(tapRecognizer)
+
+        return cell
     }
     
     
@@ -384,7 +317,7 @@ extension BlogListViewController: UIViewControllerPreviewingDelegate{
         let blog = blogs[indexPath.row]
         detailVC.blog_data = blog
         
-        detailVC.preferredContentSize = CGSize(width: 0.0, height: 300)
+        detailVC.preferredContentSize = CGSize(width: 0.0, height: 500)
         
         previewingContext.sourceRect = cell.frame
         

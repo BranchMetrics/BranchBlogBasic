@@ -73,12 +73,13 @@ class BlogViewController: UIViewController {
     }
     
     func loadBlogPost(){
-        let newcontent = "<html><head><link rel='stylesheet' id='rppWidgetCss-group-css' href='https://1yjmqg26uh9k15zq0o1pderc-wpengine.netdna-ssl.com/wp-content/plugins/bwp-miflipboardnify/min/?f=wp-content/plugins/related-posts/style/widget.css,wp-content/plugins/exit-popup/css/exit-popup.css,wp-content/plugins/social-pug/assets/css/style-frontend.css,wp-content/plugins/cta/shared/shortcodes/css/frontend-render.css,wp-content/themes/salient/css/rgs.css,wp-content/themes/salient/css/font-awesome.min.css,wp-content/themes/salient-child/style.css,wp-content/themes/salient/css/prettyPhoto.css,wp-content/themes/salient/css/responsive.css,wp-content/themes/salient/css/ascend.css,wp-content/plugins/enlighter/resources/EnlighterJS.min.css&amp;ver=1497973011' type='text/css' media='all'> </head> " +
-            "<html><body><div class='container main-content'><h1 class='entry-title'>\((blog_data?.title!)!)</h1>" +
+        self.navigationItem.title = blog_data?.title!
+        let newcontent = "<html><head><meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0'><link rel='stylesheet' id='rppWidgetCss-group-css' href='https://1yjmqg26uh9k15zq0o1pderc-wpengine.netdna-ssl.com/wp-content/plugins/bwp-miflipboardnify/min/?f=wp-content/plugins/related-posts/style/widget.css,wp-content/plugins/exit-popup/css/exit-popup.css,wp-content/plugins/social-pug/assets/css/style-frontend.css,wp-content/plugins/cta/shared/shortcodes/css/frontend-render.css,wp-content/themes/salient/css/rgs.css,wp-content/themes/salient/css/font-awesome.min.css,wp-content/themes/salient-child/style.css,wp-content/themes/salient/css/prettyPhoto.css,wp-content/themes/salient/css/responsive.css,wp-content/themes/salient/css/ascend.css,wp-content/plugins/enlighter/resources/EnlighterJS.min.css&amp;ver=1497973011' type='text/css' media='all'> <link rel='stylesheet' id='options_typography_OpenSans_ext-css' href='https://fonts.googleapis.com/css?family=Open+Sans%3A300%2C400%2C600%2C700&amp;subset=latin%2Clatin-ext' type='text/css' media='all'><style type='text/css'>body {font-family: Helvetica; color:#1e1e1e;} .title{font-size:1.25em; margin:1.25em 0 0 0; color: #1cadce; text-align:center;} .author{ font-size: 0.8em; text-align:center; font-weight:normal; color: #888888; margin: 0.7em 0;} img{ max-width: 100% !important; height: auto !important; }</style></head> " +
+            "<html><body><div class='container main-content'><h1 class='title'>\((blog_data?.title!)!)</h1>" +
+            "<h3 class='author'>By \((blog_data?.author!)!)</h3>" +
             (blog_data?.blog_content!)! + "</div></div></body></html>"
         
         
-        //        BlogWebView.loadHTMLString((blog_data?.blog_content)!, baseURL: nil)
         BlogWebView.loadHTMLString(newcontent, baseURL: nil)
         //        DispatchQueue.main.async {
         //            self.reload()

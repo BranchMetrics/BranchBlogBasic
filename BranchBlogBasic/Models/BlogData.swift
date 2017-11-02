@@ -57,7 +57,7 @@ class BlogData: NSObject {
         }
         
         self.title = title
-        self.authorurl = authorurl
+        self.author = authorurl
         self.photourl = photourl
         self.blog_description = blog_description
         self.blog_content = blog_content
