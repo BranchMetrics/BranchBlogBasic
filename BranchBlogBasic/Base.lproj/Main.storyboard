@@ -24,7 +24,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <imageView multipleTouchEnabled="YES" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Branch_logo" translatesAutoresizingMaskIntoConstraints="NO" id="u4O-0p-CYP">
-                                <rect key="frame" x="64" y="214" width="240" height="240"/>
+                                <rect key="frame" x="63" y="214" width="240" height="240"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="u58-fb-Suc">
@@ -32,14 +32,14 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             </activityIndicatorView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="wordWrap" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="ygD-96-jR4">
-                                <rect key="frame" x="64" y="541" width="248" height="21"/>
+                                <rect key="frame" x="63" y="541" width="248" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="center" lineBreakMode="tailTruncation" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xfe-YF-jsn">
-                                <rect key="frame" x="64" y="570" width="248" height="21"/>
+                                <rect key="frame" x="63" y="570" width="248" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -128,6 +128,9 @@
                                     <outlet property="delegate" destination="b2B-FL-WlL" id="cCt-eL-0L5"/>
                                 </connections>
                             </collectionView>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="CX6-jC-IuI">
+                                <rect key="frame" x="177" y="324" width="20" height="20"/>
+                            </activityIndicatorView>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="All" textAlignment="right" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="QIL-bC-MMg">
                                 <rect key="frame" x="65" y="69" width="300" height="30"/>
                                 <color key="backgroundColor" red="0.10980392156862745" green="0.67843137254901964" blue="0.80784313725490198" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -142,7 +145,9 @@
                         <color key="backgroundColor" red="0.10980392156862745" green="0.67843137254901964" blue="0.80784313725490198" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="BqB-ad-kJz" firstAttribute="width" secondItem="0hK-D1-wTT" secondAttribute="width" id="7Ma-Gd-23e"/>
+                            <constraint firstItem="CX6-jC-IuI" firstAttribute="centerX" secondItem="0hK-D1-wTT" secondAttribute="centerX" id="GBg-X4-Bz7"/>
                             <constraint firstItem="QIL-bC-MMg" firstAttribute="width" secondItem="0hK-D1-wTT" secondAttribute="width" multiplier="0.8" id="IXc-Ti-YFj"/>
+                            <constraint firstItem="CX6-jC-IuI" firstAttribute="centerY" secondItem="0hK-D1-wTT" secondAttribute="centerY" id="IlU-C3-0KA"/>
                             <constraint firstItem="BqB-ad-kJz" firstAttribute="centerX" secondItem="0hK-D1-wTT" secondAttribute="centerX" id="U0o-Jh-wjl"/>
                             <constraint firstItem="8Kn-l2-NAN" firstAttribute="top" secondItem="BqB-ad-kJz" secondAttribute="bottom" id="oeo-ZA-EU8"/>
                             <constraint firstItem="QIL-bC-MMg" firstAttribute="top" secondItem="W9A-4Q-b9r" secondAttribute="bottom" constant="5" id="pge-pl-RKS"/>
@@ -154,6 +159,7 @@
                     <connections>
                         <outlet property="blogCollectionView" destination="BqB-ad-kJz" id="NA9-po-tSI"/>
                         <outlet property="categoryPickerTextField" destination="QIL-bC-MMg" id="x2t-R5-6aE"/>
+                        <outlet property="screenloader" destination="CX6-jC-IuI" id="aQR-7X-J4n"/>
                         <segue destination="rdl-Ed-INY" kind="show" identifier="showWebView" id="uQ7-z7-SKh"/>
                         <segue destination="S6a-jJ-Lhr" kind="show" identifier="showGeneralWebViewSegue" id="uyQ-l1-sHl"/>
                     </connections>

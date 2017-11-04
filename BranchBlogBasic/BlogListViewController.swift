@@ -25,6 +25,7 @@ class BlogListViewController: UIViewController, UICollectionViewDelegateFlowLayo
     
     var page = 1
     
+    @IBOutlet weak var screenloader: UIActivityIndicatorView!
     @IBOutlet weak var categoryPickerTextField: UITextField!
     @IBOutlet var blogCollectionView: UICollectionView!
     var categoryPicker: UIPickerView!
@@ -32,6 +33,8 @@ class BlogListViewController: UIViewController, UICollectionViewDelegateFlowLayo
     var categoryPickerData = ["All Topics ▼"]
     
     override func viewDidLoad() {
+        screenloader.hidesWhenStopped = true
+        screenloader.startAnimating()
         let logo = UIImage(named: "branch_logo_WH")
         let imageView = UIImageView(image:logo)
         imageView.contentMode = .scaleAspectFit
@@ -73,6 +76,7 @@ class BlogListViewController: UIViewController, UICollectionViewDelegateFlowLayo
                 }
             }
             DispatchQueue.main.async {
+                
                 // Adding Button ToolBar
                 let doneButton = UIBarButtonItem(title: "Done", style: .plain, target: self, action: #selector(BlogListViewController.doneClick))
                 let spaceButton = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
@@ -102,6 +106,7 @@ class BlogListViewController: UIViewController, UICollectionViewDelegateFlowLayo
     
     //loading more blog posts and appending them to the end of the collection view
     func loadMoreBlogPosts(url: String) {
+        screenloader.startAnimating()
         let url: URL = URL(string: url)!
         print(url)
         //making blog post call
@@ -113,7 +118,8 @@ class BlogListViewController: UIViewController, UICollectionViewDelegateFlowLayo
         if error == nil {
             blogs.append(contentsOf: NetworkUtils.handleBlogData(jsonvalue))
             DispatchQueue.main.async {
-               self.blogCollectionView?.reloadData()
+                self.screenloader.stopAnimating()
+                self.blogCollectionView?.reloadData()
             }
         } else {
             print(jsonvalue)
